@@ -1,0 +1,110 @@
+@charset "utf-8";
+body {
+  font-size: 18px;
+}
+header {
+  height: 57.11vh;
+  background: url(./images/mobile/image-header.jpg) no-repeat 0 100% / cover;
+}
+header .header_box {
+  overflow: hidden;
+  padding: 32px 24px;
+}
+header .header_box #logo {
+float: left;
+}
+header .header_box #hamburger {
+float: right;
+}
+header .header_box #gnb {
+  display: none;
+}
+
+header .header_banner {
+  text-align: center;
+  padding-top: 57px;
+}
+header .header_banner h1{
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 2.5rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 10px;
+  margin-bottom: 58px;
+}
+
+main article .box1 {
+  height: 312px;
+  background: url(./images/mobile/image-transform.jpg);
+  background-size: cover;
+  color: rgba(0, 0, 0, 0);
+}
+main article .box2,
+main article .box4 {
+  height: 438px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+main article .box2 .txt_box,
+main article .box4 .txt_box {
+ 
+}
+main article .box2 .txt_box h3,
+main article .box4 .txt_box h3 {
+  font-family: 'Fraunces', serif;
+  color: #27313d;
+  font-size:2.08rem;
+  font-weight: 900;
+}
+main article .box2 .txt_box p,
+main article .box4 .txt_box p {
+  font-family: 'Barlow', sans-serif;
+  color: hsl(248, 3%, 49%);
+  line-height: 1.5;
+  margin: 40px 0;
+}
+main article .box2 .txt_box h4,
+main article .box4 .txt_box h4 {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  color: #27313d;
+  position: relative;
+  z-index: 2;
+}
+main article .box2 .txt_box h4::before,
+main article .box4 .txt_box h4::before {
+  content: "";
+  width: 135px; height: 10px;
+  background-color: rgba(250, 212, 0, 0.3);
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translate(-50%);
+  z-index: -1;
+}
+
+
+main article .box3 {
+  height: 312px;
+  background: url(./images/mobile/image-stand-out.jpg);
+  background-size: cover;
+  color: rgba(0, 0, 0, 0);
+
+
+}
+main article .box4 {
+  height: 438px;
+}
+main article .box5 {
+  height: 600px;
+  background-image: url(./images/mobile/image-graphic-design.jpg);
+  background-size: cover;
+
+}
+main article .box6 {
+  height: 600px;
+  background-image: url(./images/mobile/image-photography.jpg);
+  background-size: cover;
+
+}
