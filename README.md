@@ -1,4 +1,3 @@
-# webEx
+# A-Face
+AI Conference Solution
 
-#### sunnyside web add ####
-#### https://nmgvnm.github.io/webEx/sunnyside/web_sunnyside.html ####

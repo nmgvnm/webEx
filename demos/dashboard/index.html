@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ko" id="skrollr-body" class="skrollr skrollr-desktop">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title> SO-TALK </title>
+	<meta name="description" content="google node & tensorflow based AI conference solution">
+	<meta name="author" content="Rsupport">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+
+  <link href="/demos/css/bootstrap.min.css" rel="stylesheet">
+ 	<link rel="stylesheet" media="all" href="/demos/css/01/ahdev.css">
+ 	<script src="/demos/js/jquery-3.5.1.slim.min.js"></script>
+ 	<script src="/demos/js/popper.min.js"></script>
+ 	<script src="/demos/js/bootstrap.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+ 	<script src="/dist/RTCMultiConnection.min.js"></script>
+
+	<!-- OG Tags -->
+	<meta property="og:title" content="SO-TALK ㅣThe face to face solution">
+	<meta property="og:description" content="google node & tensorflow based AI conference solution">
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://sodoc.space/" />
+	<meta property="og:site_name" content="SOTALK" />
+	<meta property="og:image" content="https://i0.wp.com/sodoc.space/wp-content/uploads/2020/06/cropped-ah.jpeg?fit=512%2C512&amp;ssl=1" />
+	<meta property="og:image:width" content="512" />
+	<meta property="og:image:height" content="512" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:image" content="https://iitp.space/ogimg_from_o2job.jpg">
+
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+</head>
+<!-- ssbody mbb--> 
+<body class="ko country-KR is-pc is-support-browser" data-notice-cookie-name="RM-Ver20160616-notice-closed" data-device="pc" data-is-support-browser="true" data-service-site="brand" data-user-state="guest" data-has-notice="true" data-server="www" data-is-login="false" >
+  <header id="header">
+    <div class="header-box default">
+      <div class="left">
+        <div class="wrap-for-responsive">
+          <!-- gnb-brand -->
+          <nav id="gnb-brand" class="header-item gnb">
+            <h2 class="hide">메뉴</h2>
+
+            <div class="header-item free">
+              <a class="cola-btn size-sm type-border type-round gray" href="https://sodoc.info">SO-TALK</a>
+            </div>
+
+            <ul class="gnb-list">
+              <li>
+                <a href="https://sodoc.space">Architecture</a>
+              </li>
+              <li>
+                <a href="https://www.sodoc.info/ko/hardware">Roadmap</a>
+              </li>
+              <li>
+                <a href="https://www.sodoc.info/ko/price">Manual</a>
+              </li>
+              <li class="support">
+                <a target="_blank" href="https://help.sodoc.info/hc/ko">Support</a>
+                <ul class="depth-2">
+                  <li>
+                    <a target="_blank" href="https://help.sodoc.info/hc/ko">FAQ</a>
+                  </li>
+                  <li>
+                    <a target="_blank" href="https://help.sodoc.info/hc/ko/requests/new">문의</a>
+                  </li>
+                  <li>
+                    <a target="_blank" href="https://help.sodoc.info/hc/ko/sections/360001265014">공지사항</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="contact">
+                문의: admin@sodoc.info
+              </li>
+            </ul>
+
+            <div class="gnb-overlay"></div>
+          </nav>
+          <!-- // gnb-brand -->
+        </div>
+      </div>
+      <div class="right">
+        <div class="header-item contact-us">
+          <span>
+            문의: admin@sodoc.info
+          </span>
+        </div>
+        <!-- header-contact-us end-->
+        <!-- btn-join -->
+        <div class="header-item btn-join on">
+          <div class="btn-join-wrap">
+            <button class="cola-btn" href="#" data-conference="free-create">
+              진료시작
+            </button>
+            <button class="cola-btn" href="#" data-conference="free-create">
+              진료시작
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <h1 class="hide">SOTALK</h1>
+  <h2 class="hide">FACE to FACE</h2>
+
+  <div class="modal fade" id="startRoomModel" tabindex="-1" role="dialog" aria-labelledby="startRoomModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="startRoomModelLabel">화상진료방 만들기</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="padding-bottom: 0;">
+          <form>
+            <div class="form-group">
+              <p>
+                <label for="txt-roomid" class="col-form-label">A-key 입력</label>
+                <input type="text" class="form-control" id="txt-roomid">
+              </p>
+
+              <p>
+                <label for="txt-user-name" class="col-form-label">이름을 입력해 주세요</label>
+                <input type="text" class="form-control" id="txt-user-name">
+              </p>
+
+              <p style="display: none;">
+                <label for="txt-room-password" class="col-form-label">비밀번호를 입력해 주세요</label>
+                <input type="text" class="form-control" id="txt-room-password">
+              </p>
+
+              <a href="" style="float: right; margin-bottom: 10px; font-size: 14px;" onclick="event.preventDefault();$('.more-options').show();$(this).hide();">더보기</a>
+
+              <p class="more-options" style="margin-bottom: 0; display: none;">
+                <label class="col-form-label"><input type="checkbox" id="chk-room-password">방 비밀번호 설정 </label>
+              </p>
+
+              <p class="more-options" style="margin-top: 0; margin-bottom: 0; display: none;">
+                <label class="col-form-label"><input type="checkbox" id="chk-hidden-room">비밀진료 만들기</label>
+              </p>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" data-dismiss="modal">창닫기</button>
+          <button type="button" class="btn btn-primary" id="btn-create-room">방만들기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="container" role="main" class="main">
+    <section id="gateway" class="content section fullscreen has-skip-dot">
+      <video preload="auto" autoplay="true" loop="loop" muted="muted" volume="0" poster="/public/hp_background_7z.jpg"`>
+        <source src="/public/hp_background.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="content-outer-wrap">
+        <div class="content-inner-wrap">
+          <div class="content-item for-full-size-wrap is-support-browser is-pc">
+            <div class="copy-text">
+              <h2 class="copy-title">SO-Talk</h2>
+            </div>
+            <div class="modal fade" id="joinRoomModel" tabindex="-1" role="dialog" aria-labelledby="joinRoomModelLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="joinRoomModelLabel">A-key로 참여하기</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form>
+                      <div class="form-group">
+                        <p>
+                          <label for="txt-roomid-hidden" class="col-form-label">A-key를 입력해주세요.</label>
+                          <input type="text" class="form-control" id="txt-roomid-hidden">
+                        </p>
+                        <p>
+                          <label for="txt-user-name-hidden" class="col-form-label">환자 이름을 입력해주세요.</label>
+                          <input type="text" class="form-control" id="txt-user-name-hidden">
+                        </p>
+                        <p style="display: none;">
+                          <label for="txt-room-password-hidden" class="col-form-label">Enter Room Password:</label>
+                          <input type="text" class="form-control" id="txt-room-password-hidden">
+                        </p>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">창닫기</button>
+                    <button type="button" class="btn btn-primary" id="btn-join-hidden-room">참여하기</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--mb-->
+          <div style="float: center;margin-top: 25px;">
+            <button style="WIDTH: 120pt; HEIGHT: 100pt; opacity:0.5;" class="top-span btn btn-primary" data-toggle="modal" data-target="#startRoomModel">
+              <p style="color:white;font-size:38px;opacity:0.8;">진료개설</p>
+            </button>
+            <button style="WIDTH: 120pt; HEIGHT: 100pt; opacity:0.5;" id="btn-show-join-hidden-room" class="top-span btn btn-primary" data-toggle="modal" data-target="#joinRoomModel">
+              <p style="color:white;font-size:38px;opacity:0.8;">화상진료</p>
+            </button>
+          </div>
+          <div class="copy-text">
+            <div class="copy-desc">
+              SODOC 화상 진료 시스템<br>
+              sodoc.space<br>
+            </div>
+          </div>      
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- 전체 공통 -->
+  <div id="msg-box"></div>
+
+  <footer id="footer">
+    <div class="footer-box default company">
+      <div class="footer-box-inner ">
+
+      </div>
+      <!-- company-intro start -->
+      <div class="footer-box-inner introduce">
+        <div class="company-intro">
+          <a class="logo" href="https://www.sodoc.info/ko/home">
+            <img src="/public/footer_logo.png" alt="sodoc" width="150px">
+            <span class="blind">SOTALK</span>
+          </a>
+          <div id="corp-info">
+            대표자 : 하준호 | 사업자번호 : 186-87-02486 | 이메일 : hajunho@sodn.io<br>
+            사업장 주소 : 경기도 오산시 독산성로 425 더퍼스트타워세교 521호 
+          </div>
+        </div>
+      </div>
+      <div class="footer-box-inner products">
+        <nav>
+          <ul class="product-sitemap">
+            <li>
+                <a target="_blank" href="https://www.sodoc.info">solution1</a>
+            </li>
+            <li>
+                <a target="_blank" href="https://www.sodoc.info">solution1</a>
+            </li>
+            <li>
+                <a target="_blank" href="https://www.sodoc.info">solution1</a>
+            </li>
+            <li>
+                  <a target="_blank" href="https://www.sodoc.info">solution1</a>
+            </li>
+            <li>
+                  <a target="_blank" href="https://www.sodoc.info">solution1</a>
+            </li>
+            <li>
+                  <a target="_blank" href="https://www.sodoc.info">solution1</a>
+            </li>
+          </ul>
+        </nav>
+        <p class="inquire">문의: admin@sodoc.info</p>
+      </div>
+    </div>
+    <div class="footer-box default infos">
+      <div class="footer-box-inner">
+        <div class="info">
+          <div class="policy">
+            <a class="introduce" href="https://sodoc.space" target="_blank">회사소개</a>
+            <a class="privacy" href="https://www.sodoc.info/ko/privacy"><em>개인정보 처리방침</em></a>
+            <a class="term" href="https://www.sodoc.info/ko/terms">이용약관</a>
+          </div>
+          <!-- copyrights 년도 표기 jsp-->
+          <small class="copyright">© 2023
+            <a href="https://sodoc.space" target="_blank">SODOC</a>
+            CO., LTD. ALL RIGHTS RESERVED.
+          </small>
+          <div class="logo-language">
+            <div id="language-selection">
+              <a id="select-language-btn" class="current-lang" href="https://www.sodoc.info/ko/home#">
+                <span class="current-lang-txt">
+                  <span class="lang-item ko KR">한국 (한국어)</span>
+                  <span class="lang-item ja JP">日本 (日本語)</span>
+                  <span class="lang-item en US">United States (English)</span>
+                </span>
+                <i class="rm-icon arrow-col-down-s"></i>
+              </a>
+              <ul class="lang-list">
+                <li class="lang-item ko"><a href="https://www.sodoc.info/ko/home">한국 (한국어)</a></li>
+                <li class="lang-item ja"><a href="https://www.sodoc.info/ja/home">日本 (日本語)</a></li>
+                <li class="lang-item en"><a href="https://www.sodoc.info/en/home">United States (English)</a></li>
+                <!-- <li><a href="/cn/">中文(简体)</a></li> -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+    <!-- react버전의 Lounge.jsp에서 footer.jsp 만 호출하여 사용하기 때문에 script는 별도 분리 -->
+  <script>
+    // console 디버깅
+    if ( true && true && true && !location.hash.match('#showlog')) {
+      console.log = console.info = console.warn = console.error = function () {};
+    }
+  </script>
+  <script>
+    // this object is used to get uniquie rooms based on this demo
+    // i.e. only those rooms that are created on this page
+    var publicRoomIdentifier = '';
+dashboard
+    var connection = new RTCMultiConnection();
+
+    connection.socketURL = '/';
+    // connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+
+    /// make this room public
+    connection.publicRoomIdentifier = publicRoomIdentifier;
+    connection.socketMessageEvent = publicRoomIdentifier;
+
+    // keep room opened even if owner leaves
+    connection.autoCloseEntireSession = true;
+
+    connection.connectSocket(function(socket) {
+        looper();
+
+        socket.on('disconnect', function() {
+            location.reload();
+        });
+    });
+
+    function looper() {
+        if (!$('#rooms-list').length) return;
+        connection.socket.emit('get-public-rooms', publicRoomIdentifier, function(listOfRooms) {
+            updateListOfRooms(listOfRooms);
+
+            setTimeout(looper, 3000);
+        });
+    }
+
+    function updateListOfRooms(rooms) {
+        $('#active-rooms').html(rooms.length);
+
+        $('#rooms-list').html('');
+
+        if (!rooms.length) {
+            $('#rooms-list').html('<tr><td colspan=9>방이 아직 없습니다. [진료 만들기]로 만들어 주세요.</td></tr>');
+            return;
+        }
+
+        rooms.forEach(function(room, idx) {
+            var tr = document.createElement('tr');
+            var html = '';
+
+            // check if room is full
+            if(room.isRoomFull) {
+              // room.participants.length >= room.maxParticipantsAllowed
+              html += '<td><span style="border-bottom: 1px dotted red; color: red;">Room is full</span></td>';
+            }
+            else {
+              html += '<td><button class="btn join-room" data-roomid="' + room.sessionid + '" data-password-protected="' + (room.isPasswordProtected === true ? 'true' : 'false') +'">참여하기</button></td>';
+            }
+
+            if(!room.isPasswordProtected) {
+            //  html += '<td>' + (idx + 1) + '</td>';
+            }
+            else {
+            //  html += '<td>' + (idx + 1) + ' <img src="https://www.webrtc-experiment.com/images/password-protected.png" style="height: 15px; vertical-align: middle;" title="Password Protected Room"></td>';
+            }
+
+            html += '<td><span class="max-width" title="' + room.sessionid + '">' + room.sessionid + '</span></td>';
+            //html += '<td><span class="max-width" title="' + room.owner + '">' + room.owner + '</span></td>';
+
+            //html += '<td>';
+            //Object.keys(room.session || {}).forEach(function(key) {
+            //    html += '<pre><b>' + key + ':</b> ' + room.session[key] + '</pre>';
+            //});
+            //html += '</td>';
+
+            //html += '<td><span class="max-width" title="' + JSON.stringify(room.extra || {}).replace(/"/g, '`') + '">' + JSON.stringify(room.extra || {}) + '</span></td>';
+    //
+            //html += '<td>';
+            //room.participants.forEach(function(pid) {
+          //     html += '<span class="userinfo"><span class="max-width" title="' + pid + '">' + pid + '</span></span><br>';
+        //   });
+        //   html += '</td>';
+
+            
+            $(tr).html(html);
+            $('#rooms-list').append(tr);
+
+            $(tr).find('.join-room').click(function() {
+                $(tr).find('.join-room').prop('disabled', true);
+
+                var roomid = $(this).attr('data-roomid');
+                $('#txt-roomid-hidden').val(roomid);
+
+                $('#btn-show-join-hidden-room').click();
+
+                if($(this).attr('data-password-protected') === 'true') {
+                  $('#txt-room-password-hidden').parent().show();
+                }
+                else {
+                  $('#txt-room-password-hidden').parent().hide();
+                }
+
+                $(tr).find('.join-room').prop('disabled', false);
+            });
+        });
+    }
+
+    $('#btn-show-join-hidden-room').click(function(e) {
+      e.preventDefault();
+      $('#txt-room-password-hidden').parent().hide();
+      $('#joinRoomModel').modal('show');
+    });
+
+    $('#btn-join-hidden-room').click(function() {
+        var roomid = $('#txt-roomid-hidden').val().toString();
+        if (!roomid || !roomid.replace(/ /g, '').length) {
+            alertBox('Please enter room-id.', 'Room ID Is Required');
+            return;
+        }
+
+        var fullName = $('#txt-user-name-hidden').val().toString();
+        if (!fullName || !fullName.replace(/ /g, '').length) {
+            alertBox('Please enter your name.', 'Your Name Is Required');
+            return;
+        }
+
+        connection.extra.userFullName = fullName;
+
+        if($('#txt-room-password-hidden').parent().css('display') !== 'none') {
+          var roomPassword = $('#txt-room-password-hidden').val().toString();
+          if (!roomPassword || !roomPassword.replace(/ /g, '').length) {
+              alertBox('Please enter room password.', 'Password Box Is Empty');
+              return;
+          }
+          connection.password = roomPassword;
+
+          connection.socket.emit('is-valid-password', connection.password, roomid, function(isValidPassword, roomid, error) {
+            if(isValidPassword === true) {
+              joinAHiddenRoom(roomid);
+            }
+            else {
+              alertBox(error, 'Password Issue');
+            }
+          });
+          return;
+        }
+
+        joinAHiddenRoom(roomid);
+    });
+
+    function joinAHiddenRoom(roomid) {
+        var initialHTML = $('#btn-join-hidden-room').html();
+
+        $('#btn-join-hidden-room').html('잠시 기다리세요...').prop('disabled', true);
+
+        connection.checkPresence(roomid, function(isRoomExist) {
+            if (isRoomExist === false) {
+                alertBox('No such room exist on this server. Room-id: ' + roomid, 'Room Not Found');
+                $('#btn-join-hidden-room').html(initialHTML).prop('disabled', false);
+                return;
+            }
+
+            connection.sessionid = roomid;
+            connection.isInitiator = false;
+            $('#joinRoomModel').modal('hide');
+            openCanvasDesigner();
+
+            $('#btn-join-hidden-room').html(initialHTML).prop('disabled', false);
+        })
+    }
+
+    function openCanvasDesigner() {
+        $('#startRoomModel').modal('hide');
+        var href = location.href + 'canvas-designer.html?open=' + connection.isInitiator + '&sessionid=' + connection.sessionid + '&publicRoomIdentifier=' + connection.publicRoomIdentifier + '&userFullName=' + connection.extra.userFullName;
+        
+        if(!!connection.password) {
+          href += '&password=' + connection.password;
+        }
+
+        var newWin = window.open(href);
+        if (!newWin || newWin.closed || typeof newWin.closed == 'undefined') {
+            var html = '';
+            html += '<p>Please click following link:</p>';
+            html += '<p><a href="' + href + '" target="_blank">';
+            if(connection.isInitiator) {
+              html += 'Click To Open The Room';
+            }
+            else {
+              html += 'Click To Join The Room';
+            }
+            html += '</a></p>';
+            alertBox(html, 'Popups Are Blocked');
+        }
+    }
+
+    function alertBox(message, title, specialMessage, callback) {
+        callback = callback || function() {};
+
+        $('.btn-alert-close').unbind('click').bind('click', function(e) {
+            e.preventDefault();
+            $('#alert-box').modal('hide');
+            $('#confirm-box-topper').hide();
+
+            callback();
+        });
+
+        $('#alert-title').html(title || 'Alert');
+        $('#alert-special').html(specialMessage || '');
+        $('#alert-message').html(message);
+        $('#confirm-box-topper').show();
+
+        $('#alert-box').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+    }
+
+    function confirmBox(message, callback) {
+        $('#btn-confirm-action').html('Confirm').unbind('click').bind('click', function(e) {
+            e.preventDefault();
+            $('#confirm-box').modal('hide');
+            $('#confirm-box-topper').hide();
+            callback(true);
+        });
+
+        $('#btn-confirm-close').html('Cancel');
+
+        $('.btn-confirm-close').unbind('click').bind('click', function(e) {
+            e.preventDefault();
+            $('#confirm-box').modal('hide');
+            $('#confirm-box-topper').hide();
+            callback(false);
+        });
+
+        $('#confirm-message').html(message);
+        $('#confirm-title').html('Please Confirm');
+        $('#confirm-box-topper').show();
+
+        $('#confirm-box').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+    }
+
+    $('#btn-create-room').click(function() {
+        var roomid = $('#txt-roomid').val().toString();
+        if (!roomid || !roomid.replace(/ /g, '').length) {
+            alertBox('Please enter room-id.', 'Room ID Is Required');
+            return;
+        }
+
+        var fullName = $('#txt-user-name').val().toString();
+        if (!fullName || !fullName.replace(/ /g, '').length) {
+            alertBox('Please enter your name.', 'Your Name Is Required');
+            return;
+        }
+
+        connection.extra.userFullName = fullName;
+
+        if($('#chk-room-password').prop('checked') === true){
+          var roomPassword = $('#txt-room-password').val().toString();
+          if (!roomPassword || !roomPassword.replace(/ /g, '').length) {
+              alertBox('Please enter room password.', 'Password Box Is Empty');
+              return;
+          }
+
+          connection.password = roomPassword;
+        }    
+
+        var initialHTML = $('#btn-create-room').html();
+
+        //$('#btn-create-room').html('Please wait...').prop('disabled', true);
+
+        connection.checkPresence(roomid, function(isRoomExist) {
+            if (isRoomExist === true) {
+                alertBox('다른 방 이름을 사용해 주시기 바랍니다.', '이미 사용되고 있는 A-key입니다.');
+                return;
+            }
+
+            if ($('#chk-hidden-room').prop('checked') === true) {
+                // either make it unique!
+                // connection.publicRoomIdentifier = connection.token() + connection.token();
+
+                // or set an empty value (recommended)
+                connection.publicRoomIdentifier = '';
+            }
+
+            connection.sessionid = roomid;
+            connection.isInitiator = true;
+            openCanvasDesigner();
+            $('#btn-create-room').html(initialHTML).prop('disabled', false);
+        });
+    });
+
+    $('#chk-room-password').change(function() {
+      $('#txt-room-password').parent().css('display', this.checked === true ? 'block' : 'none');
+      $('#txt-room-password').focus();
+    });
+
+    var txtRoomId = document.getElementById('txt-roomid');
+
+    txtRoomId.onkeyup = txtRoomId.onblur = txtRoomId.oninput = txtRoomId.onpaste = function() {
+        localStorage.setItem('canvas-designer-roomid', txtRoomId.value);
+    };
+
+    if (localStorage.getItem('canvas-designer-roomid')) {
+        txtRoomId.value = localStorage.getItem('canvas-designer-roomid');
+        $('#txt-roomid-hidden').val(txtRoomId.value);
+    }
+
+    var userFullName = document.getElementById('txt-user-name');
+
+    userFullName.onkeyup = userFullName.onblur = userFullName.oninput = userFullName.onpaste = function() {
+        localStorage.setItem('canvas-designer-user-full-name', userFullName.value);
+    };
+
+    if (localStorage.getItem('canvas-designer-user-full-name')) {
+        userFullName.value = localStorage.getItem('canvas-designer-user-full-name');
+        $('#txt-user-name-hidden').val(userFullName.value);
+    }
+  </script>
+</body>
+<!-- ssjbody-->
+
+</html>
+
+
+
+

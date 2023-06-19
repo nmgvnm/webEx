@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="ko" id="skrollr-body" class="skrollr skrollr-desktop">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title> A-face </title>
+	<meta name="description" content="google node & tensorflow based AI conference solution">
+	<meta name="author" content="Rsupport">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+
+  	<link href="/demos/css/bootstrap.min.css" rel="stylesheet">
+ 	<link rel="stylesheet" media="all" href="./rm.all.css">
+ 	<script src="./jquery-3.5.1.slim.min.js"></script>
+ 	<script src="./popper.min.js"></script>
+ 	<script src="./bootstrap.min.js"></script>
+  	<script src="/socket.io/socket.io.js"></script>
+ 	<script src="/dist/RTCMultiConnection.min.js"></script>
+	<script src="./api_client.js" gapi_processed="true"></script>
+	<script src="./iframe_api"></script>
+
+	<!-- OG Tags -->
+	<meta property="og:title" content="A-Face ㅣAI-Conference">
+	<meta property="og:description" content="google node & tensorflow based AI conference solution">
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://audreyhepburn.dev/" />
+	<meta property="og:site_name" content="Audrey Hepburn DEV" />
+	<meta property="og:image" content="https://i0.wp.com/audreyhepburn.dev/wp-content/uploads/2020/06/cropped-ah.jpeg?fit=512%2C512&amp;ssl=1" />
+	<meta property="og:image:width" content="512" />
+	<meta property="og:image:height" content="512" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:image" content="https://iitp.space/ogimg_from_o2job.jpg">
+
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+	<link rel="stylesheet" media="all" href="./rm.all.css">
+	  <!--[if lt IE 9]>
+	  <script src="/public/contents/src/js/lib/html5shiv.js" type="text/javascript"></script>
+	  <script src="/public/contents/src/js/lib/PIE.js"></script>
+	  <script src="/public/contents/src/js/lib/respond.js"></script>
+	  <![endif]-->
+
+<!-- ssbody --> 
+<body class="ko country-KR is-pc is-support-browser" data-notice-cookie-name="RM-Ver20160616-notice-closed" data-device="pc" data-is-support-browser="true" data-service-site="brand" data-user-state="guest" data-has-notice="true" data-server="www" data-is-login="false" style="height: 10766px;">
+
+<noscript>Your browser does not support JavaScript!</noscript>
+
+<header id="header">
+  <div class="header-box default">
+    <div class="left">
+      <div class="wrap-for-responsive">
+
+        <!-- gnb-brand -->
+        <nav id="gnb-brand" class="header-item gnb">
+          <h2 class="hide">메뉴</h2>
+
+          <div class="header-item free">
+          <a class="cola-btn size-sm type-border type-round gray" href="https://audreyhepburn.dev">
+            회사 홈페이지
+          </a>
+          </div>
+
+          <ul class="gnb-list">
+            <li><a href="https://audreyhepburn.dev">회사홈페이지</a></li>
+            <li><a href="https://www.audreydev.com/ko/hardware">H/W</a></li>
+            <li><a href="https://www.audreydev.com/ko/price">가격</a></li>
+            <li class="support">
+                
+                  <a target="_blank" href="https://help.audreydev.com/hc/ko">지원</a>
+                
+                
+                
+              
+              <ul class="depth-2">
+                
+                  
+                    <li><a target="_blank" href="https://help.audreydev.com/hc/ko">FAQ</a></li>
+                    <li><a target="_blank" href="https://help.audreydev.com/hc/ko/requests/new">문의</a></li>
+                    <li><a target="_blank" href="https://help.audreydev.com/hc/ko/sections/360001265014">공지사항</a></li>
+                  
+                  
+                  
+                
+              </ul>
+            </li>
+            
+            <li class="contact">
+              문의: admin@audreydev.com
+            </li>
+          </ul>
+          <div class="gnb-overlay"></div>
+        </nav>
+        <!-- // gnb-brand -->
+      </div>
+    </div>
+
+    <div class="right">
+      
+    <div class="header-item contact-us">
+      <span>
+        문의: admin@audreydev.com
+      </span>
+    </div>
+    <!-- header-contact-us end-->
+    <!-- btn-join -->
+    <div class="header-item btn-join on">
+      <div class="btn-join-wrap">
+
+        <button class="cola-btn" href="#" data-conference="free-create">
+        회의시작
+        </button>
+
+        <form class="open-with-animation" action="https://www.audreydev.com/ko/home" method="post" name="" data-conference="license-join-direct" data-validation-type="alert" novalidate="novalidate">
+          <input type="text" name="accessCode" maxlength="7" autocomplete="off">
+          <button type="submit" class="cola-btn">회의참여</button>
+          <span class="tail">접속코드를 입력해주세요.</span>
+        </form>
+
+      </div>
+    </div>
+    <!-- btn-join -->
+
+    
+    
+    
+  </div>
+  </div>
+    <!--img class="logo" src="/demos/logo.png" alt="RTCMultiConnection" /> <span class="logo-text">이소라  화상회의 시스템</span-->
+
+    <div style="float: left;margin-top: 15px;">
+      <button id="btn-show-join-hidden-room" class="top-span btn btn-primary" data-toggle="modal" data-target="#joinRoomModel">방제목으로 참여하기</button>
+      <button class="top-span btn btn-secondry" data-toggle="modal" data-target="#startRoomModel">방 만들기</button>
+      <!--span class="top-span">컨퍼런스 방 개수 <span id="active-rooms">0</span></span-->
+    </div>
+</header>
+<!--/ #header -->
+
+<h1 class="hide">Audrey Hepburn DEV</h1>
+<h2 class="hide">AI Conferences</h2>
+
+  <div class="modal fade" id="startRoomModel" tabindex="-1" role="dialog" aria-labelledby="startRoomModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="startRoomModelLabel">방 만들기</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="padding-bottom: 0;">
+          <form>
+            <div class="form-group">
+              <p>
+                <label for="txt-roomid" class="col-form-label">방 제목 입력</label>
+                <input type="text" class="form-control" id="txt-roomid">
+              </p>
+
+              <p>
+                <label for="txt-user-name" class="col-form-label">이름을 입력해 주세요</label>
+                <input type="text" class="form-control" id="txt-user-name">
+              </p>
+
+              <p style="display: none;">
+                <label for="txt-room-password" class="col-form-label">비밀번호를 입력해 주세요</label>
+                <input type="text" class="form-control" id="txt-room-password">
+              </p>
+
+              <a href="" style="float: right; margin-bottom: 10px; font-size: 14px;" onclick="event.preventDefault();$('.more-options').show();$(this).hide();">Show More Options</a>
+
+              <p class="more-options" style="margin-bottom: 0; display: none;">
+                <label class="col-form-label"><input type="checkbox" id="chk-room-password">방 비밀번호 설정 </label>
+              </p>
+
+              <p class="more-options" style="margin-top: 0; margin-bottom: 0; display: none;">
+                <label class="col-form-label"><input type="checkbox" id="chk-hidden-room">목록에 나오지 않는 비밀방 만들기</label>
+              </p>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" data-dismiss="modal">창닫기</button>
+          <button type="button" class="btn btn-primary" id="btn-create-room">방만들기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<main id="container" role="main" class="main">
+
+  <section id="gateway" class="content section fullscreen has-skip-dot">
+   
+      
+        <!--video preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
+          <poster="/public/contents/src/img/main/bg-home-intro-koja.jpg">
+          <source src="/public/contents/src/video/brand-site-bg-ko.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video-->
+      
+
+
+
+    <div class="content-outer-wrap">
+      <div class="content-inner-wrap">
+        <div class="content-item for-full-size-wrap is-support-browser is-pc">
+
+          <div class="copy-text">
+            <h2 class="copy-title">A-Face</h2>
+          </div>
+
+  <div class="modal fade" id="joinRoomModel" tabindex="-1" role="dialog" aria-labelledby="joinRoomModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="joinRoomModelLabel">방 제목으로 참여하기</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <p>
+                <label for="txt-roomid-hidden" class="col-form-label">방제를 입력해주세요.</label>
+                <input type="text" class="form-control" id="txt-roomid-hidden">
+              </p>
+
+              <p>
+                <label for="txt-user-name-hidden" class="col-form-label">대화방에서 쓸 이름을 입력해주세요.</label>
+                <input type="text" class="form-control" id="txt-user-name-hidden">
+              </p>
+
+              <p style="display: none;">
+                <label for="txt-room-password-hidden" class="col-form-label">Enter Room Password:</label>
+                <input type="text" class="form-control" id="txt-room-password-hidden">
+              </p>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" data-dismiss="modal">창닫기</button>
+          <button type="button" class="btn btn-primary" id="btn-join-hidden-room">참여하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+          <!-- PC / 회의접속 폼 -->
+          <div class="copy pc go-room-form-box">
+            <div class="go-room-form-box-inner">
+              <button id="startRoomModelLabel" class="cola-btn" data-conference="free-create" data-toggle="modal" data-target="#joinRoomModel">
+              Holding
+              </button>
+
+              <form class="simple-style-form open-with-animation" data-ga-action="joinmeeting-submit" data-conference="license-join-direct" data-validation-type="alert" novalidate="novalidate">
+                <input type="text" name="accessCode" maxlength="7" autocomplete="off" class="">
+                <button class="cola-btn" type="submit">
+                  Attending
+                </button>
+                <span class="tail">접속코드를 입력해주세요.</span>
+              </form>
+
+            </div>
+          </div>
+
+
+          <div class="copy-text">
+            <div class="copy-desc">
+              AI Conference<br>
+              AudreyHepburn.DEV<br>
+            </div>
+          </div>
+
+
+
+        
+      </div>
+    </div>
+
+  </section>
+
+    
+</main>
+
+
+  <!-- 전체 공통 -->
+  <div id="msg-box"></div>
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer id="footer">
+  <div class="footer-box default company">
+    <div class="footer-box-inner ">
+
+    </div>
+    <!-- company-intro start -->
+    <div class="footer-box-inner introduce">
+      <div class="company-intro">
+        <a class="logo" href="https://www.audreydev.com/ko/home">
+          <img src="./누구나 쉽게 쓰는 화상회의 리모트미팅 l audreydev_files/logo-footer.png" alt="audreydev">
+          <span class="blind">audreydev</span>
+        </a>
+        
+          
+            <div id="corp-info">
+              대표자 : 이소라 | 사업자번호 : 885-87-01736 | 이메일 : admin@audreyhepburn.dev<br>
+              사업장 주소 : (우)31006 충청남도 천안시 서북구 대홍3길 111-45
+            </div>
+          
+          
+        
+      </div>
+    </div>
+
+    <div class="footer-box-inner products">
+      <nav>
+        <ul class="product-sitemap">
+          <li>
+            
+              
+                <a target="_blank" href="https://www.remotecall.com/kr/">RemoteCall</a>
+              
+              
+              
+            
+          </li>
+          <li>
+            
+              
+                <a target="_blank" href="https://content.rview.com/ko/">RemoteView</a>
+              
+              
+              
+            
+          </li>
+          <li>
+            
+              
+                <a target="_blank" href="https://wol.rview.com/guide">RemoteWOL</a>
+              
+              
+              
+            
+          </li>
+          <li>
+            <a target="_blank" href="https://www.taasmobile.com/">TAAS</a>
+          </li>
+          <li>
+            
+              
+                <a target="_blank" href="https://www.mobizen.com/?locale=ko">Mobizen</a>
+              
+              
+              
+            
+          </li>
+          <li>
+            
+              
+                <a target="_blank" href="https://www.litecam.net/ko/">liteCam</a>
+              
+              
+              
+            
+          </li>
+        </ul>
+      </nav>
+      
+        <p class="inquire">문의: admin@audreydev.com</p>
+      
+    </div>
+  </div>
+  <div class="footer-box default infos">
+    <div class="footer-box-inner">
+      <div class="info">
+        <div class="policy">
+
+
+          
+              <a class="introduce" href="https://audreyhepburn.dev" target="_blank">
+                회사소개
+              </a>
+
+          <a class="privacy" href="https://www.audreydev.com/ko/privacy"><em>개인정보 처리방침</em></a>
+          <a class="term" href="https://www.audreydev.com/ko/terms">이용약관</a>
+          
+          
+        </div>
+        <!-- copyrights 년도 표기 jsp-->
+        <small class="copyright">© 2020
+          
+              <a href="https://audreyhepburn.dev" target="_blank">AudreyHepburnDEV</a>
+            
+          
+          CO., LTD. ALL RIGHTS RESERVED.
+        </small>
+
+        <div class="logo-language">
+          
+            
+              <div id="language-selection">
+                <a id="select-language-btn" class="current-lang" href="https://www.audreydev.com/ko/home#">
+                  <span class="current-lang-txt">
+                    <span class="lang-item ko KR">한국 (한국어)</span>
+                    <span class="lang-item ja JP">日本 (日本語)</span>
+                    <span class="lang-item en US">United States (English)</span>
+                  </span>
+                  <i class="rm-icon arrow-col-down-s"></i>
+                </a>
+                <ul class="lang-list">
+                  <li class="lang-item ko"><a href="https://www.audreydev.com/ko/home">한국 (한국어)</a></li>
+                  <li class="lang-item ja"><a href="https://www.audreydev.com/ja/home">日本 (日本語)</a></li>
+                  <li class="lang-item en"><a href="https://www.audreydev.com/en/home">United States (English)</a></li>
+                  <!-- <li><a href="/cn/">中文(简体)</a></li> -->
+                </ul>
+              </div>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+  
+
+
+
+
+
+<!-- react버전의 Lounge.jsp에서 footer.jsp 만 호출하여 사용하기 때문에 script는 별도 분리 -->
+<script>
+  // console 디버깅
+  if ( true && true && true && !location.hash.match('#showlog')) {
+    console.log = console.info = console.warn = console.error = function () {};
+  }
+</script>
+
+
+  
+
+  <!-- staging, www -->
+
+    <!-- ========================================================================
+                                        공통
+    ========================================================================= -->
+
+    <!-- 라이브러리 -->
+    <script src="./누구나 쉽게 쓰는 화상회의 리모트미팅 l audreydev_files/rm.global.lib.js"></script>
+    <!-- 커스텀 - 클래스 정의 -->
+    <script src="./누구나 쉽게 쓰는 화상회의 리모트미팅 l audreydev_files/rm.global.class.js"></script>
+    <!-- 다국어 (js 소스 내 사용) -->
+     
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+<script type="text/javascript">
+  $.i18n = {
+    // 유효성 메시지
+    RM00047: '이름을 입력해 주세요.', // 이름을 입력해 주세요.
+    RM00048: '이메일을 입력해 주세요.', // 이메일을 입력해 주세요.
+    RM00822: '비밀번호가 틀렸습니다. 다시 확인해주세요.', // 비밀번호가 틀렸습니다. 다시 확인해주세요.
+    RM00049: '이메일이 형식에 맞지 않습니다.', // 이메일이 형식에 맞지 않습니다.
+    RM00674: '사용 가능한 이메일입니다.', // 사용 가능한 이메일입니다.
+    RM00431: '올바른 형식으로 입력해주세요.', // 올바른 형식으로 입력해주세요.
+    RM00317: '내용을 입력하세요.', // 내용을 입력하세요.
+    RM00051: '필수 입력사항입니다.', // 필수 입력사항입니다.
+    RM00067: '접속코드를 입력해주세요.', // 접속코드를 입력해주세요.
+    RM00068: '접속코드는 6자리 숫자만 가능합니다.', // 접속코드는 6자리 숫자만 가능합니다.
+    RM00455: '숫자만 입력 가능합니다.', // 숫자만 입력 가능합니다.
+    RM00561: '너무 짧거나, 영문, 숫자 또는 특수문자로만 구성된 비밀번호, 이메일 아이디와\n동일한 비밀번호는 설정할 수 없습니다.\u003Cbr\u003E 안전한 비밀번호를 입력해주세요.', // 너무 짧거나, 영문, 숫자 또는 특수문자로만 구성된 비밀번호, 이메일 아이디와 동일한 비밀번호는 설정할 수 없습니다.<br> 안전한 비밀번호를 입력해주세요.
+    RMB0332: '{0}자 이하로 입력하여 주십시오.', // {0}자 이하로 입력하여 주십시오.
+
+
+    // 회의 관련
+    RM00072: '미팅에서 나가시겠습니까?', // 미팅룸에서 나가시겠습니까?
+    RM00073: '[#]님이 회의실에 입장하였습니다.', // [#] 님과 연결 되었습니다.
+    RM00074: '내 웹캠과 연결 되었습니다.', // 내 웹캠과 연결 되었습니다.
+    RM00075: '#인 모드로 전환되었습니다.', // #인 모드로 전환되었습니다.
+    RM00076: '#이상 회의시 큰 화면이 주화자 화면으로 전환됩니다.', // #이상 회의시 큰 화면이 주화자 화면으로 전환됩니다.
+    RM00077: '[#] 님이 나갔습니다.', // [#] 님이 나갔습니다.
+    RM00078: '1:1 모드로 전환 되었습니다.', // 1:1 모드로 전환 되었습니다.
+    RM00079: '서비스를 사용하기 위해서는 웹캠이 필요합니다.', // 서비스를 사용하기 위해서는 웹캠이 필요합니다.
+    RM00080: '사용 가능한 마이크가 없습니다.', // 사용 가능한 마이크가 없습니다.
+    RM00081: '상단의 #카메라와 마이크 접근을 허용해 주세요.', // 상단의 #카메라와 마이크 접근을 허용해 주세요.
+    RM00083: '참석 가능 인원이 모두 찼습니다.', // 참석 가능 인원이 모두 찼습니다.
+    RM00084: '홈 화면으로 이동 하시겠습니까?', // 홈 화면으로 이동 하시겠습니까?
+    RM00085: '미팅 검색 중 입니다.', // 미팅룸 검색 중 입니다.
+    RM00086: '기존에 접속한 미팅룸에 재접속 되었습니다.', // 기존에 접속한 미팅룸에 재접속 되었습니다.
+    RM00070: '전체화면', // 전체화면
+    RM00087: '전체화면닫기', // 전체화면해제
+    RM00093: '카메라와 마이크 접근이 차단되었습니다. 상단 아이콘 #을 클릭하여 접근을 허용후 재접속 하십시오.', // 카메라와 마이크 접근이 차단되었습니다. 상단 아이콘 #을 클릭하여 접근을 허용 하십시오.
+    RM00094: '숨기기', // 숨기기
+    RM00095: '보이기', // 보이기
+    RM00097: '경과시간 보기', // 경과시간 보기
+    RM00098: '현재시각 보기', // 현재시간 보기
+    RM00121: '이메일을 입력하세요', // 이메일을 입력하세요
+    RM00122: '비디오 중지', // 비디오 중지
+    RM00123: '비디오 시작', // 비디오 시작
+    RM00124: '음소거', // 음소거
+    RM00125: '음소거 해제', // 음소거 해제
+    RM00128: '#님이 포인터를 사용했습니다.', // #님이 포인터를 사용했습니다.
+    RM00129: '#님이 카메라를 켰습니다.', // #님이 비디오를 시작했습니다.
+    RM00130: '#님이 카메라를 껐습니다.', // #님이 비디오를 중지했습니다.
+    RM00131: '#님이 마이크를 음소거했습니다.', // #님이 마이크를 음소거했습니다.
+    RM00132: '#님이 마이크 음소거를 해제했습니다.', // #님이 마이크 음소거를 해제했습니다.
+    RM00133: '#님이 화면공유를 시작했습니다.', // #님이 화면공유를 시작했습니다.
+    RM00134: '#님이 화면공유를 종료했습니다.', // #님이 화면공유를 종료했습니다.
+    RM00135: '#님이 <b>fileName</b>를 공유했습니다.', // #님이 <b>fileName</b>를 공유했습니다.
+    RM00136: '#님이 문서공유를 종료했습니다.', // #님이 문서공유를 종료했습니다.
+    RM00137: '이미 서버에 존재 하는 문서입니다.', // 이미 서버에 존재 하는 문서입니다.
+    RM00138: '파일 업로드에 실패하였습니다. 다시 시도해 주세요.', // 파일 업로드에 실패하였습니다. 다시 시도해 주세요.
+    RM00139: '초대장을 전송하였습니다.', // 초대장을 전송하였습니다.
+    RM00140: '신규 연락처를 리스트에 추가하였습니다.', // 신규 연락처를 리스트에 추가하였습니다.
+    RM00141: '초대할 연락처를 입력해 주세요.', // 초대할 연락처를 입력해 주세요.
+    RM00142: '올바른 이메일 형식으로 입력해주세요.', // 올바른 이메일 형식으로 입력해주세요.
+    RM00173: 'URL을 복사 했습니다.', // URL을 복사 했습니다.
+    RM00174: '접속코드를 복사 했습니다.', // 접속코드를 복사 했습니다.
+    RM00178: '[#] 님이 참여했습니다.', // #님이 참여했습니다.
+    RM00179: '[#] 님이 퇴장했습니다.', // #님이 퇴장했습니다.
+    RM00180: '서버와 연결이 끊어졌습니다. 재접속 하시겠습니까?', // 서버와 연결이 끊어졌습니다. 재접속 하시겠습니까?
+    RM00200: '앱으로 이동', // 앱으로 이동
+    RM00202: '모바일 미지원', // 모바일 미지원
+    RM00203: '파일 전송을 시작했습니다.', // 파일 전송을 시작했습니다.
+    RM00204: '파일을 전송할 사용자를 선택해 주세요.', // 파일을 전송할 사용자를 선택해 주세요.
+    RM00205: '전송완료', // 전송완료
+    RM00206: '파일 전송이 완료되었습니다.', // 파일 전송이 완료되었습니다.
+    RM00207: '#님에게 @ 파일을 전송합니다.', // #님에게 @ 파일을 전송합니다.
+    RM00208: '#님이 @ 파일을 전송합니다.', // #님이 @ 파일을 전송합니다.
+    RM00214: '영상회의를 사용하기 위해서는 웹캠이나 마이크가 필요합니다. 웹캠과 마이크가 필요없는 문서공유 모드를 이용해 보세요', // 영상회의를 사용하기 위해서는 웹캠이나 마이크가 필요합니다. 웹캠과 마이크가 필요없는 문서공유 모드를 이용해 보세요
+    RM00215: '다운로드', // 다운로드
+    RM00216: '삭제', // 삭제
+    RM00449: '경과', // 경과
+    RM00450: '초대장을 전송할 이메일을 선택해 주세요', // 초대장을 전송할 이메일을 선택해 주세요
+    RM00451: '시간', // 시간
+    RM00452: '분', // 분
+    RM00456: '[audreydev] 미팅으로 초대합니다.', //'[audreydev] 미팅으로 초대합니다.'
+    RM00457: '[audreydev] 미팅으로 초대합니다. https:\/\/audreydev.com 접속 후 아래 접속코드를 입력 해주세요. [000000]', //'[audreydev] 미팅으로 초대합니다. http://audreydev.com 접속 후 아래 접속코드를 입력 해주세요. [000000]'
+    RM00465: '#명 선택됨', //'#명 선택됨'
+    RM00468: '이미 방에 동일한 사용자가 존재합니다.', // 이미 방에 동일한 사용자가 존재합니다.
+    RM00627: '이전에 작성한 회의록이 없습니다.', // 이전에 작성된 회의록이 없습니다.'
+    RM00628: '#님이 작성중 입니다.', // 다른 사람이 작성중 입니다.'
+    RM00477: '저장 중...', // 저장중...'
+    RM00478: '모든 변경사항이 HISTORY에 저장됨.', // 모든 변경사항이 HISTORY에 저장됨.'
+    RM00479: '저장실패, 다시 저장 시도 합니다.', // 저장 실패, 다시 저장 시도 합니다.'
+    RM00632: 'Guest는 보기 전용 권한만 가지고 있습니다.', // Guest는 보기 전용입니다.'
+    RM00633: '회의록을 전송하였습니다.', // 전송하였습니다.'
+    RM00486: '주소록 닫기', // 주소록 닫기'
+    RM00487: '주소록 보기', // 주소록 보기'
+    RM00629: '주소록에서 즐겨찾기 등록하세요.', // 주소록에서 즐겨찾기 등록하세요.'
+    RM00630: '관리자 페이지에서 주소록을 추가하세요.', // 어드민 계정으로 주소록을 추가 하세요.'
+    RM00631: '목록이 없습니다.', // 목록이 없습니다.'
+    RM00634: '선택한 사용자는 이메일 정보가 없습니다.', // 선택한 사용자는 이메일 정보가 없습니다.'
+    RM00491: '타임라인으로 저장하시겠습니까?', // 다른 참여자들에게 보내시겠습니까?'
+    RM00120: '전송', // 전송'
+    RM00063: '확인', // 확인'
+    RM00429: '취소', // 취소'
+    RM00635: '회의실이 잠금 상태로 변경되었습니다.', // 잠금 설정되었습니다.'
+    RM00636: '회의실 잠금이 해제 되었습니다.', // 잠금 해제되었습니다.'
+    RM00637: '요청이 거절되었습니다.', // 방장이 요청을 거절했습니다.'
+    RM00639: '타임라인으로 저장', // 타임라인으로 저장
+    RM00502: '회의에 참여하려면 노크하세요.', // '화상회의를 시작하려면 노크하세요.'
+    RM00647: '브라우저를 최신 버전으로 업데이트 해주세요.', // '브라우저를 최신 버전으로 업데이트 해주세요.'
+    RM00653: '노크중 입니다.', // '노크중 입니다.'
+    RM00654: '상대방이 요청을 취소하였습니다.', // '상대방이 요청을 취소하였습니다.'
+    RM00655: '이미 다른 사용자가 개설한 회의실 입니다.', // '이미 다른 사용자가 개설한 회의실 입니다.'
+    RM00656: '다른 브라우저나 장비에서 접속하여 회의가 종료되었습니다.', // '다른 브라우저나 장비에서 접속하여 회의가 종료되었습니다.'
+    RM00657: '로그아웃하여 세션이 종료되었습니다.', // '로그아웃하여 세션이 종료되었습니다.'
+    RM00658: '이메일 또는 이름을 입력하세요.', // '이메일 또는 이름을 입력하세요.'
+    RM00660: '주소록에 없는 이름입니다.', // '주소록에 없는 이름입니다.'
+    RM00466: 'PIP숨기기', // PIP숨기기
+    RM00497: 'PIP보기', // PIP보기
+    RM00661: '잠겨있는 회의실 입니다. 참여할 수 없습니다.', // 잠겨있는 회의실 입니다. 참여할 수 없습니다.
+    RM00662: '죄송합니다.\n서버와의 연결이 끊겨 회의가 종료되었습니다.', // 죄송합니다.\n서버와의 연결이 끊겨 회의가 종료되었습니다.
+    RM00670: '크롬 브라우저에서 사용 가능합니다.', // 크롬 브라우저로 사용 가능합니다.
+    RM00677: '공유자', // 공유자
+    RM00695: '검색된 장치가 없습니다.\n장치 연결 후 새로고침 해주세요.', // 검색된 장치가 없습니다.\n장치 연결 후 새로고침 해주세요.
+    RM00696: '다음 문자는 사용할 수 없습니다 ', // 다음 문자는 사용할 수 없습니다
+    RM00697: '다른 참여자들의 회의록을 펼쳤습니다.', // 다른 참여자들의 회의록을 펼쳤습니다.
+    RM00698: '변환 할 수 없는 파일 형식 입니다.', // 변환 할 수 없는 파일 형식 입니다.
+    RM00699: '최대 업로드 크기는 # 이하 입니다.', // 최대 업로드 크기는 # 이하 입니다.
+    RM00711: '#님이 타임라인으로 이미지를 전송하였습니다.', // #님이 타임라인으로 이미지를 전송하였습니다.
+    RM00712: '대기중', // "대기중"
+    RM00715: '네트워크 상태', // "네트워크 상태"
+    RM00718: '녹화가 시작되었습니다.', // "녹화가 시작되었습니다."
+    RM00719: '녹화가 종료되었습니다.', // "녹화가 종료되었습니다."
+    RM00720: '화면 공유가 시작 되었습니다.', // "화면 공유가 시작 되었습니다."
+    RM00723: '#님이 회의록 같이보기를 했습니다.', // "#님이 회의록 같이보기를 했습니다."
+    RM00726: '녹화를 종료하려면 #님에게 요청하세요.', // "녹화를 종료하려면 #님에게 요청하세요."
+    RM00727: '#님이 녹화를 시작했습니다.', // "#님이 녹화를 시작했습니다."
+    RM00728: '#님이 녹화를 종료했습니다.', // "#님이 녹화를 종료했습니다."
+    RM00730: '다른 사용자가 참여한 후 녹화를 시작 할 수 있습니다.', // "다른 사용자가 참여한 후 녹화를 시작 할 수 있습니다."
+    RM00733: '참여 알림음을 껐습니다.', // "참여 알림음을 껐습니다."
+    RM00734: '참여 알림음을 켰습니다.', // "참여 알림음을 켰습니다."
+    RM00737: '총 #건', // "총 #명"
+    RM00738: '캡쳐 이미지를 타임라인으로 전송하였습니다.', // "캡쳐 이미지를 타임라인으로 전송하였습니다."
+    RM00739: '현재 크롬에서만 지원하는 기능입니다.', // "현재 크롬에서만 지원하는 기능입니다."
+    RM00757: 'Free 버전에서는 기록이 저장되지 않습니다.', // Free 버전에서는 기록이 저장되지 않습니다.
+    RM00758: '외부인(타그룹, 비회원)의 참여로 사용 권한이 제한되었습니다.\u003Cbr\u003E그룹 관리자에게 문의하세요.', // 외부인(타그룹, 비회원)의 참여로 사용 권한이 제한되었습니다.<br>그룹 관리자에게 문의하세요.
+    RM00759: '외부인(타그룹, 비회원)의 참여가 제한되어있습니다.\n회의 초대자에게 문의하세요.', // 외부인(타그룹, 비회원)의 참여가 제한되어있습니다.\n회의 초대자에게 문의하세요.
+    RM00760: '사용 권한이 없습니다.\u003Cbr\u003E그룹 관리자에게 문의하세요.', // 사용 권한이 없습니다.<br>그룹 관리자에게 문의하세요.
+    RM00761: '회의 가능시간이 아닙니다.\n그룹 관리자에게 문의하세요.', // 회의 가능시간이 아닙니다.\n그룹 관리자에게 문의하세요.
+    RM00764: '회의 주최자의 그룹에서 사용 제한 설정된 기능입니다.', // 회의 주최자의 그룹에서 사용 제한 설정된 기능입니다.
+    RM00765: '주화면을 고정했습니다. 화면 고정을 해제하시려면 고정된 PIP를 한번 더 선택해주세요.', // 주화면을 고정했습니다. 화면 고정을 해제하시려면 고정된 PIP를 한번 더 선택해주세요.
+    RM00791: '카메라가 다른 애플리케이션에서 이미 사용 중입니다.\n카메라를 사용하고 있는 다른 애플리케이션을 종료 후 재접속 해주세요.', // '카메라가 다른 애플리케이션에서 이미 사용중입니다.\n카메라를 사용하고 있는 다른 애플리케이션을 닫은 후 다시 시도 해주세요.'
+    RM00794: '최소 해상도를 지원하지 않는 카메라입니다.\n360p 이상 해상도를 지원하는 카메라를 사용해 주세요.', // '최소 해상도를 지원하지 않는 카메라입니다.\n360p 이상 해상도를 지원하는 카메라를 사용해 주세요.'
+    RM00707: '정리중..', // '정리중..'
+    RM00819: '회의 생성중', // '회의 생성중'
+    RM00505: '회의 참여', // '회의 참여'
+    RM00827: '현재 브라우저에서 1:1의 경우 상대방의 PIP 영상은 지원하지 않습니다.', // Edge 브라우저, 1:1 회의에서 상대방 PIP 영상 미지원
+    RM00831: '공유 중지', // '공유 중지'
+    RM00873: '예약 알림', // '예약 알림'
+    RM00874: '예약 시간', // '예약 시간'
+    RM00875: '예약자', // '예약자'
+    RM00673: '구글 크롬 브라우저로 실행해 주십시오.', // '구글 크롬 브라우저로 실행해 주십시오.'
+    RM00895: '확장프로그램 설치 후 현재 브라우저를 리프레시 해주세요.', // '확장프로그램 설치 후 현재 브라우저를 리프레시 해주세요.'
+    RM00897: '확장프로그램 설치', // '확장프로그램 설치'
+    RM00898: '앱 설치 하기', // '앱 설치 하기'
+    RMB0307: 'Mobile App을 다운로드 후 이용해 주세요.', // 'Mobile App을 다운로드 후 이용해 주세요.'
+    RM00901: '전송실패', // '전송실패'
+    RM00902: '사회자모드', // '사회자모드'
+    RM00903: '참여자 리스트', // '참여자리스트'
+    RM00904: '발언권요청', // '발언권요청'
+    RM00905: '[#]님이 발언권을 요청하셨습니다.', // '[#]님이 발언권을 요청하셨습니다.'
+    RM00906: '전체 마이크가 OFF 되었습니다.', // '전체 마이크가 OFF 되었습니다.'
+    RM00907: '전체 마이크가 ON 되었습니다.', // '전체 마이크가 ON 되었습니다.'
+    RM00908: '[#]님이 사회자 권한을 선택하였습니다.', // '[#]님이 사회자 권한을 선택하였습니다.'
+    RM00909: '현재 [#]님이 사회자입니다.', // '현재 [#]님이 사회자입니다.'
+    RM00910: '사회자 모드는 회의 참여자가 많을 경우 원활한 회의 진행을 위해 발언권을 조정하는 기능을 제공합니다.<br/>사회자 모드를 활성화하면 [#]님이 회의 조정자가 됩니다.<br/>사회자 모드를 활성화 하시겠습니까?', // '사회자 모드는 회의 참여자가 많을 경우 원활한 회의 진행을 위해 발언권을 조정하는 기능을 제공합니다.<br/>사회자 모드를 활성화하면 [#]님이 회의 조정자가 됩니다.<br/>사회자 모드를 활성화 하시겠습니까?'
+    RM00911: '발언권이 승인 되었습니다.', // '발언권이 승인 되었습니다.'
+    RM00912: '발언권이 거절 되었습니다.', // '발언권이 거절 되었습니다.'
+    RM00913: '발언권 승인', // '발언권 승인'
+    RM00914: '전체마이크 ON', // '전체마이크 ON'
+    RM00915: '전체마이크 OFF', // '전제마이크 OFF'
+    RM00916: '전송성공', // '전송성공'
+    RM00919: '빈 파일입니다. 파일을 확인해주세요', // '빈 파일입니다. 파일을 확인해주세요'
+    RM00920: 'PIP 창모드는 카메라가 영상이 있어야 사용 가능합니다.', // 'PIP 창모드는 카메라가 영상이 있어야 사용 가능합니다.'
+    RM00921: 'Windows에서 다운로드한 이미지가 열리지 않는 경우 다른 이미지 뷰어를 사용해주세요.', // 'Windows에서 다운로드한 이미지가 열리지 않는 경우 다른 이미지 뷰어를 이용해주세요.'
+    RM00922: 'PIP창모드', // 'PIP창모드'
+    RM00923: 'PIP창모드 닫기 ', // 'PIP창모드 닫기'
+    RM00924: '마이크 ON', // '마이크 ON'
+    RM00925: '마이크 OFF', // '마이크 OFF'
+    RM00926: '발언중', // '발언중'
+    RM00941: '#님이 AI기록을 중지하였습니다.', // '#님이 AI기록을 중지하였습니다.'
+    RM00938: '#님이 AI기록 언어설정을 $로 변경하였습니다.', // '#님이 AI기록 언어설정을 @로 변경하였습니다.'
+    RM00943: '예기치 못한 오류로 인해 AI 기록을 사용할 수 없습니다. 잠시 후 다시 시도해주세요.', // '예기치 못한 오류로 인해 AI 기록을 사용할 수 없습니다. 잠시 후 다시 시도해주세요.'
+    RM00944: '카메라가 다른 애플리케이션에서 이미 사용중입니다.\\n\n다른 애플리케이션을 종료 후 [새로고침] 하시면, 카메라를 활용한 회의가 가능합니다.', // 카메라가 다른 애플리케이션에서 이미 사용중입니다.\n다른 애플리케이션을 종료 후 [새로고침] 하시면, 카메라를 활용한 회의가 가능합니다.',
+    RM00945: '관리자 페이지에서 AI기록 제한을 제한없음으로 변경해야 합니다.', // '관리자에서 AI기록 제한을 제한 없음으로 변경해야 합니다.'
+    RM00947: '현재 회의를 개설중입니다.\n잠시 후 다시 시도해 주세요.', // 현재 회의를 개설중입니다.\n잠시 후 다시 시도해 주세요.
+    RMB0871: '15인 모드로 변경 되었습니다.', // 15인 모드로 변경 되었습니다.
+    RM00950: '정식 오픈 시 사용 가능합니다.', // 정식 오픈 시 사용 가능합니다.
+    RM00724: '녹화', // 녹화
+    RM00956: '카메라 혹은 마이크 없이 회의에 참여 되었습니다.', // 카메라 혹은 마이크 없이 회의에 참여 되었습니다.
+    RM00957: '다른 애플리케이션에서 카메라가 사용 중이라면, \u003C\/br\u003E\n카메라 사용 종료 후, \u003Cb\u003E[새로고침]\u003C\/b\u003E하시면 카메라를 사용한 회의가 가능합니다.', // 다른 애플리케이션에서 카메라가 사용 중이라면, </br>카메라 사용 종료 후, <b>[새로고침]</b>하시면 카메라를 사용한 회의가 가능합니다. 
+    RM00958: '카메라 문제 해결하기', // 카메라 문제 해결하기 
+    RMB0888: '사회자에게 발언권을 요청하세요.', // 사회자에게 발언권을 요청하세요. 
+
+    // 연결 상태 진단
+    RM00796: '진단 시작', //'진단 시작'
+    RM00797: '중지', // 중지
+    RM00798: '다시 시작', // 다시 시작
+    RM00799: '안정적인 연결을 위해 현재 사용자의 환경을 진단 합니다.', // 안정적인 연결을 위해 현재 사용자의 환경을 진단 합니다.
+    RM00800: '카메라 연결 상태와 지원 해상도를 확인하고 있습니다.', // 카메라 연결 상태와 지원 해상도를 확인하고 있습니다.
+    RM00801: '마이크 연결 상태를 확인하고 있습니다.', // 마이크 연결 상태를 확인하고 있습니다.
+    RM00802: 'PC의 네트워크 상태를 확인하고 있습니다.', // PC의 네트워크 상태를 확인하고 있습니다.
+    RM00803: 'audreydev 서버와 연결을 확인하고 있습니다.', // audreydev 서버와 연결을 확인하고 있습니다.
+    RM00804: '진단 결과', //'진단 결과'
+    RM00805: '모든 항목의 연결에 성공하였습니다.', //'모든 항목의 연결에 성공하였습니다.'
+    RM00806: '카메라가 연결되지 않았습니다. \u003Cbr\u003E카메라를 사용중인 다른 응용 프로그램을 닫거나 PC와 정상적으로 연결되어 있는지 확인해주세요.', //'카메라가 연결되지 않았습니다. <br>카메라를 사용중인 다른 응용 프로그램을 닫거나 PC와 정상적으로 연결되어 있는지 확인해주세요.'
+    RM00807: '마이크가 연결되지 않았습니다.\u003Cbr\u003E\n마이크가 정상적으로 연결되어 있는지 확인해주세요.', //'마이크가 연결되지 않았습니다.<br>마이크가 정상적으로 연결되어 있는지 확인해주세요.'
+    RM00808: '네트워크가 연결되지 않았습니다.\u003Cbr\u003E\nPC의 네트워크 환경을 확인해 주시기 바랍니다.', //'네트워크가 연결되지 않았습니다.<br>PC의 네트워크 환경을 확인해 주시기 바랍니다.'
+    RM00809: '계속 연결이 되지 않는다면 고객센터로 문의를 남겨주세요.', //'계속 연결이 되지 않는다면 고객센터로 문의를 남겨주세요.'
+    RM00810: 'audreydev 서버와 연결되지 않습니다.\u003Cbr\u003E\n아래 내용으로 네트워크 관리자에게 확인해주세요.', //'audreydev 서버와 연결되지 않습니다.<br>아래 내용으로 네트워크 관리자에게 확인해주세요.'
+    RM00811: 'audreydev 메시지 서버와 미디어 서버와의 연결을 위해 다음 항목을 확인해주세요.', //'audreydev 메시지 서버와 미디어 서버와의 연결을 위해 다음 항목을 확인해주세요.'
+    RM00917: 'TCP 443포트를 사용할수 있어야 하며 보다 안정적인 운영을 위해서 UDP포트 443 및 33000~65535포트를 사용할수 있도록 설정해주십시오 .', //'TCP 443포트를 사용할수 있어야 하며 보다 안정적인 운영을 위해서 UDP포트 443 및 33000~65535포트를 사용할수 있도록 설정해주십시오 .'
+    RM00918: '기본적인 웹Proxy설정에서는 사용가능하나, 성능적으로 제약이 따를수 있습니다.', //'기본적인 웹Proxy설정에서는 사용가능하나, 성능적으로 제약이 따를수 있습니다.'
+
+    // 리스트 CRUD 관련
+    RM00410: '정상적으로 등록되었습니다.', // 정상적으로 등록되었습니다.
+    RM00411: '정상 처리 되었습니다.', // 정상 처리 되었습니다.
+    RM00412: '정말 삭제하시겠습니까?', // 정말 삭제하시겠습니까?
+
+    // 응답코드별 알림메시지
+    RM00439: '회원 탈퇴 처리되었습니다. 그동안 저희 리모트미팅을 이용해 주셔서 감사합니다.', // 회원 탈퇴 처리되었습니다.<br>그동안 저희 리모트미팅을 이용해 주셔서 감사합니다.
+    RM00440: '입력하신 정보가 올바르지 않습니다. 다시 입력해주세요.', // 입력하신 정보가 올바르지 않습니다. 다시 입력해주세요.
+    RM00441: '사용자의 아이디와 패스워드가 유효하지 않습니다.', // 사용자의 아이디와 패스워드가 유효하지 않습니다.
+    RM00442: '등록된 사용자가 아닙니다.', // 등록된 사용자가 아닙니다.
+    RM00443: '이미 로그인되어 있습니다.', // 이미 로그인되어 있습니다.
+    RM00458: '인증되지 않은 요청입니다.', // 인증되지 않은 요청입니다.
+    RM00542: '등록되지 않은 이메일이거나 비밀번호가 잘못 입력되었습니다.', // 등록되지 않은 이메일이거나 비밀번호가 잘못 입력되었습니다.
+    RMB0015: '비밀번호를 잊으셨나요?', // 비밀번호를 잊으셨나요?
+    RMB0228: '비밀번호 찾기 페이지로 이동하시겠습니까?', // 비밀번호 찾기 페이지로 이동하시겠습니까?
+    RM00648: '이메일과 비밀번호를 입력해주세요.', // 이메일과 비밀번호를 입력해주세요.
+    RM00537: '이메일 주소를 입력해 주세요.', // 이메일 주소를 입력해 주세요.
+    RM00538: '비밀번호를 입력해 주세요.', // 비밀번호를 입력해 주세요.
+    RM00562: '이미 등록된 이메일이 있습니다. 다시 입력해 주세요.', // 이미 등록된 이메일이 있습니다. 다시 입력해 주세요.
+    RM00560: '입력한 비밀번호와 재입력한 비밀번호가 일치하지 않습니다. 다시 확인해 주세요.', // 입력한 비밀번호와 재입력한 비밀번호가 일치하지 않습니다. 다시 확인해 주세요.
+    RM00645: '\u003Cb\u003E이메일 인증이 완료 되어, audreydev에 가입되었습니다.\u003C\/b\u003E\u003Cbr\u003E', // audreydev에 이미 가입되었습니다. 다른 이메일을 사용해 주세요
+    RM00567: '전송된 이메일에서 인증을 완료해 주세요.', // 전송된 이메일에서 인증을 완료해 주세요.
+    RMB0365: '탈퇴 처리중인 이메일입니다. 사용을 원하시면 문의를 남겨주세요.\u003Ca href=\"https:\/\/help.audreydev.com\/hc\/ko\/requests\/new\" target=\"_blank\" class=\"contact-us\"\u003E문의하기\u003C\/a\u003E', // 탈퇴 처리중인 이메일입니다. 사용을 원하시면 문의를 남겨주세요.<a href="https://help.rsupport.com/hc/ko/requests/new" target="_blank" class="contact-us">문의하기</a>
+    RM00766: '시스템 오류가 발생하였습니다.', // 시스템 오류가 발생하였습니다
+    RM00818: '부서 없음', // 부서 없음
+    RMA00284: '아이디와 비밀번호를 확인해 주세요.', // 아이디와 비밀번호를 확인해 주세요.
+    RMA01168: '등록되지 않은 이메일이거나 비밀번호가 잘못 입력되었습니다. \n관리자에게 문의하여 비밀번호 초기화 후 다시 시도해주세요.', // 등록되지 않은 이메일이거나 비밀번호가 잘못 입력되었습니다. <br>관리자에게 문의하여 비밀번호 초기화 후 다시 시도해주세요.
+    RMA00284: '접근 권한이 없는 계정입니다.\u003Cbr\u003E 관리자에게 문의 또는\u003Cbr\u003E www.audreydev.com에서 로그인해주세요.', // 접근 권한이 없는 계정입니다.<br>관리자에게 문의 또는 www.audreydev.com에서 로그인해주세요.
+    RMB0884: '서버와의 연결에 실패하였습니다. 네트워크를 확인해 보시고 다시 시도해주세요.', // 서버와의 연결에 실패하였습니다. 네트워크를 확인해 보시고 다시 시도해주세요.
+
+    // 설정 (로비)
+    RM00459: 'jpg, gif, png 이미지만 등록 가능합니다.', // jpg, gif, png 이미지만 등록 가능합니다.
+
+    // 사용자 계정 관련
+    RM00432: '미가입 회원입니다. 회원가입을 하시겠습니까?', // 미가입 회원입니다. 회원가입을 하시겠습니까?
+    RM00433: '회원가입이 되었습니다.', // 회원가입이 되었습니다.
+    RM00460: '이미 가입된 사용자입니다.', // 이미 가입된 사용자입니다.
+    RM00461: '로그인하지 않은 사용자 입니다.', // 로그인하지 않은 사용자 입니다.
+    RM00462: '정말 탈퇴 하시겠습니까?', // 정말 탈퇴 하시겠습니까
+    RM00586: '가입하신 이메일로 비밀번호 재설정 메일을 전송 합니다.', // 가입하신 이메일로 비밀번호 재설정 메일을 전송 합니다.
+    RM00570: '이메일 인증 메일이 전송 되었습니다. 이메일 인증 완료 후 가입이 완료 됩니다.', // 이메일 인증 메일이 전송 되었습니다. 이메일 인증 완료 후 가입이 완료 됩니다.
+    RM00595: '비밀번호가 정상적으로 변경 되었습니다.', // 비밀번호가 정상적으로 변경 되었습니다.
+    RM00694: '접근 권한이 없는 IP에서 접속하였습니다.', // 접근 권한이 없는 IP에서 접속하였습니다.
+    RM00776: '리모트뷰 계정 연결이 완료되었습니다.', // 리모트뷰 계정 연결이 완료되었습니다.
+    RM00781: '리모트뷰 계정 연결이 해제되었습니다.', // 리모트뷰 계정 연결이 해제되었습니다.
+
+    // 라이선스
+    RM00618: '라이선스 기간이 만료되었습니다.', // 라이선스 기간이 만료되었습니다.
+    RM00612: '무료체험 기간이 만료되었습니다.', // 무료체험 기간이 만료되었습니다.
+    RM00613: '결제를 부탁드립니다.', // 결제를 부탁드립니다.
+    RM00652: '사용할 수 없는 아이디 입니다. 그룹 관리자에게 문의하세요.', // 사용할 수 없는 아이디 입니다. 그룹 관리자에게 문의하세요.
+    RMB0339: '라이선스가 만료 되었습니다!', // 라이선스가 만료 되었습니다!
+    RMA00806: '요금제', // 사용중인 요금제가 없습니다.
+
+    // 홈페이지
+    RM00195: '아이폰앱은 지원예정입니다.', // 아이폰앱은 지원예정입니다.
+    RM00089: '죄송합니다. 요청하신 페이지 권한이 없습니다.', // 죄송합니다. 요청하신 페이지 권한이 없습니다.
+    RM00090: '죄송합니다. 결과 처리 과정에 문제가 발생하였습니다.', // 죄송합니다. 결과 처리 과정에 문제가 발생하였습니다.
+    RMB0366: '이메일을 확인해주세요.', // 이메일을 확인해주세요.
+    RM00544: '서비스를 이용하시려면 이용약관 및 개인정보 수집에 동의해 주시기 바랍니다.', // 서비스를 이용하시려면 이용약관 및 개인정보취급방침에 동의해 주시기 바랍니다.
+    RMA00777: 'ID 요금제', // ID 요금제
+    RMA00778: '회의실 요금제', // 회의실 요금제
+    RM00066: '홈으로', // 홈으로
+    RMB0347: '카메라가 연결되지 않았습니다.', // 카메라가 연결되지 않았습니다.
+
+    // 예약 대기 페이지
+    RM00663: '이미 종료된 회의 입니다.', // 이미 종료된 회의 입니다.
+    RM00876: '아직 예약된 회의 시간이 아닙니다.', // 아직 예약된 회의 시간이 아닙니다.
+    RM00877: '회의 시작시간 10분 전부터 회의를 시작할 수 있습니다.', // 회의 시작시간 10분 전부터 회의를 시작할 수 있습니다.
+    RM00878: '다시 시도', // 다시 시도
+    RMA00649: '오전 @시 #분', // 오전 @시 #분
+    RMA00650: '오후 @시 #분', // 오후 @시 #분
+
+    // 채널, 히스토리
+    RM00646: '로그인 후, 함께 사용할 멤버들을 등록해보세요.', // 이미 참여 중인 회의가 있습니다.
+    RM00626: '앞으로 할 일을 입력하세요.', // 앞으로 할 일을 입력하세요.
+    RM00508: '회의 제목을 입력하세요. (최대50자)', // 회의 제목을 입력하세요.
+    RMA00514: '로그인 세션이 만료되었습니다. \u003Cbr\u003E다시 로그인 해주세요.', // 로그인 세션이 만료되었습니다. 다시 로그인 해주세요.
+    RMA00238: '잘못된 접근이거나 알 수 없는 에러입니다.\u003Cbr\u003E 관리자에게 문의해 주세요.', // 잘못된 접근이거나 알 수 없는 에러입니다.<br> 관리자에게 문의해 주세요.
+
+    // 컨퍼런스
+    RM00672: '입장할 수 없는 회의실 입니다.', // 입장할 수 없는 회의실 입니다.
+    RMA00548: '결제가 정상적으로 처리되지 않아\u003Cbr\u003E{0} 부터 사용중지 처리될 예정입니다. \u003Cbr\u003E서비스를 계속 이용하시려면 결제처리가 될 수 있도록 결제정보를 확인해 주시기 바랍니다.', // 결제가 정상적으로 처리되지 않아<br>{0} 부터 사용중지 처리될 예정입니다. <br>서비스를 계속 이용하시려면 결제처리가 될 수 있도록 결제정보를 확인해 주시기 바랍니다.
+    RMA00498: '차단된 팝업창을 허용해 주십시오', // 차단된 팝업창을 허용해 주십시오
+    RM00789: '동시에 사용 할 수 있는 최대 회의실 수를 초과하였습니다.\u003Cbr\u003E관리자에게 문의해주세요.', // 동시에 사용 할 수 있는 최대 회의실 수를 초과하였습니다.<br>관리자에게 문의해주세요.
+    RM00792: '동시에 사용 할 수 있는 최대 회의실 수를 초과하였습니다.\u003Cbr\u003E사용중인 요금제를 확인해주세요.', // 동시에 사용 할 수 있는 최대 회의실 수를 초과하였습니다.<br>사용중인 요금제를 확인해주세요.
+    RM00787: '라이선스가 만료된 계정입니다.\u003Cbr\u003E관리자에게 문의해주세요.', // 라이선스가 만료된 계정입니다.<br>관리자에게 문의해주세요.
+    RM00788: '라이선스가 만료된 계정입니다.\u003Cbr\u003E사용중인 요금제를 확인해주세요.', // 라이선스가 만료된 계정입니다.<br>사용중인 요금제를 확인해주세요.
+    RMA00804: '업로드 가능한 파일명은 50자까지 제한되어 있습니다.', // 업로드 가능한 파일명은 30자까지 제한되어 있습니다.
+    RM00974: '#님이 @를 삭제했습니다.', // #님이 @를 삭제했습니다.
+    RM00976: '삭제를 실패하였습니다. 다시 시도해주세요.', // 삭제를 실패하였습니다. 다시 시도해주세요.
+
+    // 브랜드 특징 페이지
+    RMB0677: '회의록', // 회의록
+    RMB0678: '채팅 · 이벤트 로그', // 채팅 이벤트 로그
+
+    // 예약 대기페이지
+    RM00885: '잠시만 기다려주세요.', // '잠시만 기다려주세요.'
+
+    // 라이브데모
+    RM00886: 'AI 데모와 함께하는 라이브미팅', // 'AI 데모와 함께하는 라이브미팅'
+    RM00889: '로그인된 회원에게만 제공되는 기능입니다.\u003Cbr\u003E로그인을 하시거나 무료체험에 가입해 보세요.', // 로그인된 회원에게만 제공되는 기능입니다. 로그인을 하시거나 무료체험에 가입해 보세요.
+    RM00890: '라이브미팅 중에는 사용 할 수 없습니다.\u003Cbr\u003E라이브미팅 종료 후 회의를 개설해 이용해 보세요.', // 라이브미팅 중에는 사용 할 수 없습니다. 라이브미팅 종료 후 회의를 개설해 이용해 보세요.
+    RM00893: '라이브미팅에서는 메세지에 응답하지 않습니다.\n궁금하신 사항은 여기 helpdesk에서 확인해 보세요.', // 라이브미팅에서는 메세지에 응답하지 않습니다. 궁금하신 사항은 여기 helpdesk에서 확인해 보세요.
+
+    // 프로필 설정 페이지
+    RMB0799: '프로필 이미지를 확인해 주세요.', // 프로필 이미지를 확인해 주세요.
+
+    // 하드웨어 페이지
+    RMB0803: 'OK 버튼으로 화상회의실 만들기', // OK 버튼으로 화상회의실 만들기
+    RMB0804: '리모컨의 OK 버튼을 클릭하면 화상회의실이 바로 만들어집니다.\n\u003Cspan\u003E항상 준비되어 있는 화상회의실 리모트미팅박스로 만나보세요.\u003C\/span\u003E', // 리모컨의 OK 버튼을 클릭하면 화상회의실이 바로 만들어집니다. 항상 준비되어 있는 화상회의실 리모트미팅박스로 만나보세요
+    RMB0805: '구매 문의하기', // 구매문의하기
+    RMB0806: '스마트한 화상회의 장비로 업무환경 업그레이드', // 스마트한 화상회의 장비로 업무환경 업그레이드
+    RMB0807: '리모트미팅박스는 소형, 중형, 대형룸을 언제든지 화상회의실로 쉽게 바꿀 수 있습니다.\n간편하게 설치하고 즉시 사용할 수 있는 하드웨어 패키지입니다.', // 리모트미팅박스는 소형,중형, 대형룸을 언제든지 화상회의실로 쉽게 바꿀 수 있습니다 간편하게 설치하고 즉시 사용할 수 있는 하드웨어 패키지입니다
+    RMB0808: '회의실에 최적화된 장비 패키지 구성', // 회의실에 최적화된 장비 패키지 구성
+    RMB0809: '전용화상회의 장비와 리모콘, 고화질 Full HD 카메라, 고음질의 HD 스피커, \u003Cbr\u003E\n이 모든 요소가 audreydev BOX에 구성되어 있습니다. ', // 전용화상회의 장비와 리모콘, 고화질 Full HD 카메라,고음질의 HD 스피커, 이 모든 요소가 audreydev BOX에 구성되어 있습니다.
+    RMB0810: 'audreydevBox', // audreydevBox
+    RMB0811: 'Remote Control', // Remote Control
+    RMB0812: 'Speaker', // Speaker
+    RMB0813: 'Web Camera', // Web Camera
+    RMB0814: '간편한 사용 방법', // 간편한 사용 방법
+    RMB0815: '간소화된 화상회의 절차로 \n학습 할 필요없이 누구나 빠르고 간편하게 화상회의실을 구성하고 관리할 수 있습니다.', // 간소화된 화상회의 절차로 학습 할 필요없이 누구나 빠르고 간편하게 화상회의실을  구성하고 관리할 수 있습니다.
+    RMB0816: '부담 없는 가격', // 부담 없는 가격
+    RMB0817: '부담 없는 합리적인 비용으로 \n소규모 회사들도 audreydev Box를 통해 즉각적이고 효율적인 업무 관리를 할 수 있습니다.', // 부담 없는 합리적인 비용으로 소규모 회사들도 audreydev Box를 통해 즉각적이고 효율적인 업무 관리를 할 수 있습니다.
+    RMB0818: '올인원 패키지', // 올인원 패키지
+    RMB0819: '항상 준비되어 있는 화상 회의실 구성에\n필요한 장비 세트를 한번에 올인원 패키지로 제공하여 별도의 추가 작업이 필요없습니다.', // 항상 준비되어 있는 화상 회의실 구성에 필요한 장비 세트를 한번에 올인원 패키지로 제공하여 별도의 추가 작업이 필요없습니다.
+    RMB0820: '모든 공간을 위한 화상 회의', // 모든 공간을 위한 화상 회의
+    RMB0821: '회의실 크기에 상관 없이 모든 회의실 환경에 적합한 솔루션을 제공합니다. \u003Cbr\/\u003E\n회의실 규모별 필요한 화상장비를 최소의 비용으로 비즈니스 커뮤니케이션 환경을 업그레이드 하세요.', // 회의실 크기에 상관 없이 모든 회의실 환경에 적합한 솔루션을 제공합니다. <br/>회의실 규모별 필요한 화상장비를 최소의 비용으로 비즈니스 커뮤니케이션 환경을 업그레이드 하세요
+    RMB0822: '다양한 주변기기와의 호환성', // 다양한 주변기기와의 호환성
+    RMB0823: 'audreydev Box는 화상회의에 필요한 관련 장비들과 호환성을 지닙니다.', // audreydev Box는 화상회의에 필요한 관련 장비들과 호환성을 지닙니다.
+    RMB0824: '기존에 사용하던 음향기기 및 스피커 등의 화상 관련 장비들과 함께 연결할 수 있습니다.', // 기존에 사용하던 음향기기 및 스피커 등의 화상 관련 장비들과 함께 연결하여 사용할 수 있습니다.
+    RMB0825: '2 port HDMI 지원', // 2 port HDMI 지원
+    RMB0826: '디스플레이 출력 HDMI port와 노트북 화면 직접 연결 입력 HDMI port를 지원합니다.', // 디스플레이 출력 HDMI port와 노트북 화면 직접 연결 입력 HDMI port를 지원합니다.
+    RMB0827: '일반 화상회의와 프리젠테이션 화면 전환을 지원합니다.', // 일반 화상회의와 프리젠테이션  화면 전환을 지원합니다.
+    RMB0828: '비즈니스 규모별 다양한 화상 회의실 구성', // 비즈니스 규모별 다양한 화상 회의실 구성
+    RMB0829: '회의실 규모에 따라 최적화된 전용 장비를 올인원 패키지로 제공합니다.', // 회의실 규모에 따라 최적화된 전용 장비를 올인원 패키지로 제공합니다.
+    RMB0830: '소형 회의실용 (6인 미만 규모)', // 소형 회의실용 (6인 미만 규모)
+    RMB0831: '일반적인 4~6인의 소회의실 규모에서 모니터 또는 노트북만 있으면 전용 화상회의실로 언제든지 변경할 수 있습니다. \naudreydev BOX 패키지에는 기본 웹캠과 일체형 스피커가 포함되어 있어 소규모의 인원도 고품질의 전용 화상회의를 진행 할 수 있습니다.', // 일반적인 4~6인의 소회의실 규모에서 모니터 또는 노트북만  있으면 전용 화상회의실로 언제든지 변경할 수 있습니다. audreydev BOX 패키지에는 기본 웹캠과 일체형 스피커가 포함되어 있어 소규모의 인원도 고품질의 전용 화상회의를 진행 할 수 있습니다.
+    RMB0832: '중형 회의실용 (10~20인 규모)', // 중형 회의실용 (10~20인 규모)
+    RMB0833: '10~20인 규모의 너무 작지도 크지도 않은 중형 회의실에서의 화상회의도 가능합니다. \naudreydev BOX의 기본 패키지와 함께 중소규모의 화상회의에 알맞은 전용 Meetup 또는 Group Cam과 함께 구성된 안정적인 화상회의를 진행할 수 있습니다.', // 10~20인 규모의 너무 작지도 크지도 않은 중형 회의실에서의 화상회의도 가능합니다. audreydev BOX의 기본 패키지와 함께 중소규모의 화상회의에 알맞은 전용 Meetup 또는 Group Cam과 함께 구성된 안정적인 화상회의를 진행할 수 있습니다.
+    RMB0834: '대형 회의실용 (20인 이상 규모)', // 대형 회의실용 (20인 이상 규모)
+    RMB0835: '20인 이상의 단체 규모에서도 다수 인원을 와이드 카메라로 모두 화면에 담을 수 있는 대형 화상회의실 구성이 가능합니다.\n화자 인식이 되는 개별 마이크 설치를 통해 넓은 회의실에서도 뚜렷한 음성 전달이 되어, 비즈니스 컨퍼런스에 최적화된 화상회의를 진행할 수 있습니다.', // 20인 이상의 단체 규모에서도 다수 인원을 와이드 카메라로 모두 화면에 담을 수 있는 대형 화상회의실 구성이 가능합니다. 화자 인식이 되는 개별 마이크 설치를 통해 넓은 회의실에서도 뚜렷한 음성 전달이 되어, 비즈니스 컨퍼런스에 최적화된 화상회의를 진행할 수 있습니다.
+    RMB0836: 'Product View', // Product View
+    RMB0837: '좌우로 스크롤 해보세요.', // 좌우로 스크롤 해보세요
+    RMB0838: '사용자 메뉴얼', // 사용자 메뉴얼
+    RMB0839: 'audreydev BOX 사양', // audreydev BOX 사양
+    RMB0840: 'Logitech Business Camera Full HD(1280&720p), 저광 보정, 오토-포커싱, 90도 광대 시야 각', // Logitech Business Camera Full HD(1080p), 저광 보정, 오토-포커싱, 90도 광대 시야 각
+    RMB0841: 'Jabra 510; 전-방향 식 마이크, 디지털 신호 프로세싱(DSP), Bluetooth\/USB 연결', // Jabra 510; 전-방향 식 마이크, 디지털 신호 프로세싱(DSP), Bluetooth/USB 연결
+    RMB0842: '알서포트 리모트미팅 파트너십', // 알서포트 리모트미팅 파트너십
+    RMB0843: '알서포트는 No.1 글로벌 디지털장비업체들과의 파트너십을 통해\u003Cbr\u003E\n다양한 화상회의기기와의 높은 호환성과 최적화된 화상서비스를 제공합니다.', // 알서포트는 No.1 글로벌 디지털장비업체들과의 파트너십을 통해 다양한 화상회의기기와의 높은 호환성과 최적화된 화상서비스를 제공합니다.
+    RMB0844: '㈜알서포트는 Logitech의 글로벌 화상회의 파트너십 \u003Cspan\u003E프로그램인 LCP (Logitech Collaboration Program)\u003C\/span\u003E의 멤버로서 Logitech과 화상회의 사업에서 긴밀한 협력관계를 맺고 있습니다. 알서포트의 audreydev Box는 LCP 인증을 위한 Logitech의 엄격한 테스트를 통과하였습니다. \u003Cbr\/\u003E\u003Cbr\/\u003E\naudreydev Box는 Logitech의 모든 화상회의 제품들과 완벽하게 호환되며, 고화질의 생생한 화상회의를 할 수 있도록 지원합니다.', // ㈜알서포트는 Logitech의 글로벌 화상회의 파트너십 <span>프로그램인 LCP (Logitech Collaboration Program)</span>의 멤버로서 Logitech과 화상회의 사업에서 긴밀한 협력관계를 맺고 있습니다. 알서포트의 audreydev Box는 LCP 인증을 위한 Logitech의 엄격한 테스트를 통과하였습니다. <br/>audreydev Box는 Logitech의 모든 화상회의 제품들과 완벽하게 호환되며, 고화질의 생생한 화상회의를 할 수 있도록 지원합니다.
+    RMB0845: '㈜알서포트는 보다 우수한 화상회의 환경을 제공하기 위해 20년 노하우의 미디어 시스템 제조사인 VTV와 협력 관계를 맺고 있습니다. \u003Cbr\/\u003E\u003Cbr\/\u003E\nVTV의 Conference Pack은 깨끗하고 명확한 음성 전달을 위한 고성능 카메라를 활용한 화자 추적 기능을 제공합니다. VTV의 Conference Pack과 호환되는 유일한 화상 장비는 audreydev Box로, 다양한 회의실 환경에서 고품질의 화상회의를 할 수 있도록 지원합니다.', // ㈜알서포트는 보다 우수한 화상회의 환경을 제공하기 위해 20년 노하우의 미디어 시스템 제조사인 VTV와 협력 관계를 맺고 있습니다. <br/>VTV의 Conference Pack은 꺠끗하고 명확한 음성 전달을 위한 고성능 카메라를 활용한 화자 추적 기능을 제공합니다. VTV의 Conference Pack과 호환되는 유일한 화상 장비는 audreydev Box로, 다양한 회의실 환경에서 고품질의 화상회의를 할 수 있도록 지원합니다.
+    RMB0846: '이미 많은 사용자분들이 \u003Cspan\u003Eaudreydev Box\u003C\/span\u003E를 사용하고 있습니다.', // 이미 많은 사용자분들이 <span>audreydev Box</span>를 사용하고 있습니다.
+    RMB0847: '지금 화상회의실 환경을 업그레이드 하세요.', // 지금 화상회의실 환경을 업그레이드 하세요
+    RMB0848: '구매 문의하기', // 구매문의하기
+    RMB0373: '선택된 파일이 없습니다.', // 선택된 파일이 없습니다.
+
+    // 구글계정 연동
+    RMB0868: '계정 연동을 해제 하시겠습니까?', // 계정 연동을 해제 하시겠습니까?
+    RMB0866: '이메일 정보와 동일한 이메일 계정으로만 사용 가능합니다.', // 이메일 정보와 동일한 이메일 계정으로만 사용 가능합니다.
+    RMB0867: '구글 계정 연동이 완료 되었습니다.', // 구글 계정 연동이 완료 되었습니다.
+    RMB0869: '계정 연동이 해제 되었습니다.', // 계정 연동이 해제 되었습니다.
+    RMB0865: '이미 가입한 계정입니다.', // 이미 가입한 계정입니다.
+    RMB0881: '회원가입이 완료 되었습니다.\n로그인 후 서비스 이용 가능합니다.', // 회원가입이 완료 되었습니다. \n 로그인 후 서비스 이용 가능합니다.
+    RM00963: '모바일에서는 회의를 시작 할 수 없습니다. \u003C\/br\u003E\nMobile App을 다운로드 후 이용해 주세요.', // 모바일에서는 회의를 시작 할 수 없습니다. </br>Mobile App을 다운로드 후 이용해 주세요. 
+    RM00964: '지금 사용하시는 인터넷 브라우저에서는 \u003C\/br\u003E\naudreydev이 실행되지 않습니다.\u003C\/br\u003E\n크롬 또는 새로운 엣지 브라우저로 실행해 주십시오.', // 지금 사용하시는 인터넷 브라우저에서는 </br>audreydev이 실행되지 않습니다.</br>구글 크롬 브라우저로 실행해 주십시오.
+  };
+
+  $.i18n.RM00789 = $.i18n.RM00789.replace(/<br>/g, '\n');
+  $.i18n.RM00792 = $.i18n.RM00792.replace(/<br>/g, '\n');
+  $.i18n.RM00787 = $.i18n.RM00787.replace(/<br>/g, '\n');
+  $.i18n.RM00788 = $.i18n.RM00788.replace(/<br>/g, '\n');
+
+</script>
+
+
+    <!-- 커스텀 - 메인 클래스 호출 -->
+    <script>
+      window.rm = new Colabox({
+        serverType: 'www', // 'local', 'dev', 'staging', 'www'
+        country: '',
+        countryCode: 'KR',
+        domain: 'www.audreydev.com',
+        lang: 'ko',
+        apiDomain: '//' + 'api.audreydev.com',
+        isAdmin: false,
+        isSolution: false,
+        googleClientId: '78937684060-m7tcaso7dqvfg9hs7mk0jcfopl4d0dvl.apps.googleusercontent.com',
+        user: {
+          isLogined: false,
+          
+          userCount: '', //TODO 테스트용. 확인후 삭제
+          isAdmin: false,
+          imageURL: '',
+          name: '',
+          email: '',
+          customerID: '',
+          userID: '',
+          notAssignedLicenseId: '',
+          licenseStatus : '',
+          googleConnected: false
+        }
+      })
+    </script>
+
+    <!-- FCM -->
+    <script src="./누구나 쉽게 쓰는 화상회의 리모트미팅 l audreydev_files/firebase.js"></script>
+    <script src="./누구나 쉽게 쓰는 화상회의 리모트미팅 l audreydev_files/firebase-client.js"></script>
+    <script src="./누구나 쉽게 쓰는 화상회의 리모트미팅 l audreydev_files/notification.js"></script>
+
+    <!-- 커스텀 - 메인 클래스 사용 -->
+    <script src="./누구나 쉽게 쓰는 화상회의 리모트미팅 l audreydev_files/rm.global.view.js"></script><div class="tooltip">
+<div class="arrow"></div>
+<div class="tooltip-content"></div>
+</div>
+
+    <!-- 서비스별 js import 분기 -->
+    <script>
+      if (window.rm.isBrand) {
+        window.scriptLoading([
+          '/public/contents/dist/js/rm.brand.lib.js?ver=2020-07-15T10:56:56Z',
+          '/public/contents/dist/js/rm.brand.view.js?ver=2020-07-15T10:56:56Z'
+        ], function() {
+          // 외부 접근이 불가하도록 전역 rm 삭제
+          delete window.rm;
+        });
+      }
+    </script><script src="./누구나 쉽게 쓰는 화상회의 리모트미팅 l audreydev_files/rm.brand.lib.js"></script>
+  
+
+
+<!-- google login -->
+<script src="./누구나 쉽게 쓰는 화상회의 리모트미팅 l audreydev_files/platform.js" async="" defer="" gapi_processed="true"></script>
+
+<!-- 서버 리다이렉션 판단 분기문  -->
+
+
+
+
+
+
+      
+    
+  
+
+
+
+<iframe id="ssIFrame_google" sandbox="allow-scripts allow-same-origin" aria-hidden="true" frame-border="0" src="./누구나 쉽게 쓰는 화상회의 리모트미팅 l audreydev_files/iframe.html" data-gtm-yt-inspected-1337858_38="true" data-gtm-yt-inspected-1337858_39="true" style="position: absolute; width: 1px; height: 1px; left: -9999px; top: -9999px; right: -9999px; bottom: -9999px; display: none;"></iframe><iframe name="_hjRemoteVarsFrame" title="_hjRemoteVarsFrame" id="_hjRemoteVarsFrame" src="./누구나 쉽게 쓰는 화상회의 리모트미팅 l audreydev_files/box-469cf41adb11dc78be68c1ae7f9457a4.html" data-gtm-yt-inspected-1337858_38="true" data-gtm-yt-inspected-1337858_39="true" style="display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;"></iframe><script src="./누구나 쉽게 쓰는 화상회의 리모트미팅 l audreydev_files/rm.brand.view.js"></script><div id="loader" style="display: none; top: 357.5px; left: 531.5px;">
+<span></span> <span></span> <span></span> <span></span>
+</div>
+<div id="overlay-for-loader" style="display: none;"></div><script src="./누구나 쉽게 쓰는 화상회의 리모트미팅 l audreydev_files/signaling.js"></script>
+
+
+
+
+<script>
+// this object is used to get uniquie rooms based on this demo
+// i.e. only those rooms that are created on this page
+var publicRoomIdentifier = 'dashboard';
+
+var connection = new RTCMultiConnection();
+
+connection.socketURL = '/';
+// connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+
+/// make this room public
+connection.publicRoomIdentifier = publicRoomIdentifier;
+connection.socketMessageEvent = publicRoomIdentifier;
+
+// keep room opened even if owner leaves
+connection.autoCloseEntireSession = true;
+
+connection.connectSocket(function(socket) {
+    looper();
+
+    socket.on('disconnect', function() {
+        location.reload();
+    });
+});
+
+function looper() {
+    if (!$('#rooms-list').length) return;
+    connection.socket.emit('get-public-rooms', publicRoomIdentifier, function(listOfRooms) {
+        updateListOfRooms(listOfRooms);
+
+        setTimeout(looper, 3000);
+    });
+}
+
+function updateListOfRooms(rooms) {
+    $('#active-rooms').html(rooms.length);
+
+    $('#rooms-list').html('');
+
+    if (!rooms.length) {
+        $('#rooms-list').html('<tr><td colspan=9>방이 아직 없습니다. [방 만들기]로 만들어 주세요.</td></tr>');
+        return;
+    }
+
+    rooms.forEach(function(room, idx) {
+        var tr = document.createElement('tr');
+        var html = '';
+
+        // check if room is full
+        if(room.isRoomFull) {
+          // room.participants.length >= room.maxParticipantsAllowed
+          html += '<td><span style="border-bottom: 1px dotted red; color: red;">Room is full</span></td>';
+        }
+        else {
+          html += '<td><button class="btn join-room" data-roomid="' + room.sessionid + '" data-password-protected="' + (room.isPasswordProtected === true ? 'true' : 'false') +'">참여하기</button></td>';
+        }
+
+        if(!room.isPasswordProtected) {
+        //  html += '<td>' + (idx + 1) + '</td>';
+        }
+        else {
+        //  html += '<td>' + (idx + 1) + ' <img src="https://www.webrtc-experiment.com/images/password-protected.png" style="height: 15px; vertical-align: middle;" title="Password Protected Room"></td>';
+        }
+
+        html += '<td><span class="max-width" title="' + room.sessionid + '">' + room.sessionid + '</span></td>';
+        //html += '<td><span class="max-width" title="' + room.owner + '">' + room.owner + '</span></td>';
+
+        //html += '<td>';
+        //Object.keys(room.session || {}).forEach(function(key) {
+        //    html += '<pre><b>' + key + ':</b> ' + room.session[key] + '</pre>';
+        //});
+        //html += '</td>';
+
+        //html += '<td><span class="max-width" title="' + JSON.stringify(room.extra || {}).replace(/"/g, '`') + '">' + JSON.stringify(room.extra || {}) + '</span></td>';
+//
+        //html += '<td>';
+        //room.participants.forEach(function(pid) {
+       //     html += '<span class="userinfo"><span class="max-width" title="' + pid + '">' + pid + '</span></span><br>';
+     //   });
+     //   html += '</td>';
+
+        
+        $(tr).html(html);
+        $('#rooms-list').append(tr);
+
+        $(tr).find('.join-room').click(function() {
+            $(tr).find('.join-room').prop('disabled', true);
+
+            var roomid = $(this).attr('data-roomid');
+            $('#txt-roomid-hidden').val(roomid);
+
+            $('#btn-show-join-hidden-room').click();
+
+            if($(this).attr('data-password-protected') === 'true') {
+              $('#txt-room-password-hidden').parent().show();
+            }
+            else {
+              $('#txt-room-password-hidden').parent().hide();
+            }
+
+            $(tr).find('.join-room').prop('disabled', false);
+        });
+    });
+}
+
+$('#btn-show-join-hidden-room').click(function(e) {
+  e.preventDefault();
+  $('#txt-room-password-hidden').parent().hide();
+  $('#joinRoomModel').modal('show');
+});
+
+$('#btn-join-hidden-room').click(function() {
+    var roomid = $('#txt-roomid-hidden').val().toString();
+    if (!roomid || !roomid.replace(/ /g, '').length) {
+        alertBox('Please enter room-id.', 'Room ID Is Required');
+        return;
+    }
+
+    var fullName = $('#txt-user-name-hidden').val().toString();
+    if (!fullName || !fullName.replace(/ /g, '').length) {
+        alertBox('Please enter your name.', 'Your Name Is Required');
+        return;
+    }
+
+    connection.extra.userFullName = fullName;
+
+    if($('#txt-room-password-hidden').parent().css('display') !== 'none') {
+      var roomPassword = $('#txt-room-password-hidden').val().toString();
+      if (!roomPassword || !roomPassword.replace(/ /g, '').length) {
+          alertBox('Please enter room password.', 'Password Box Is Empty');
+          return;
+      }
+      connection.password = roomPassword;
+
+      connection.socket.emit('is-valid-password', connection.password, roomid, function(isValidPassword, roomid, error) {
+        if(isValidPassword === true) {
+          joinAHiddenRoom(roomid);
+        }
+        else {
+          alertBox(error, 'Password Issue');
+        }
+      });
+      return;
+    }
+
+    joinAHiddenRoom(roomid);
+});
+
+function joinAHiddenRoom(roomid) {
+    var initialHTML = $('#btn-join-hidden-room').html();
+
+    $('#btn-join-hidden-room').html('잠시 기다리세요...').prop('disabled', true);
+
+    connection.checkPresence(roomid, function(isRoomExist) {
+        if (isRoomExist === false) {
+            alertBox('No such room exist on this server. Room-id: ' + roomid, 'Room Not Found');
+            $('#btn-join-hidden-room').html(initialHTML).prop('disabled', false);
+            return;
+        }
+
+        connection.sessionid = roomid;
+        connection.isInitiator = false;
+        $('#joinRoomModel').modal('hide');
+        openCanvasDesigner();
+
+        $('#btn-join-hidden-room').html(initialHTML).prop('disabled', false);
+    })
+}
+
+function openCanvasDesigner() {
+    $('#startRoomModel').modal('hide');
+    var href = location.href + 'canvas-designer.html?open=' + connection.isInitiator + '&sessionid=' + connection.sessionid + '&publicRoomIdentifier=' + connection.publicRoomIdentifier + '&userFullName=' + connection.extra.userFullName;
+    
+    if(!!connection.password) {
+      href += '&password=' + connection.password;
+    }
+
+    var newWin = window.open(href);
+    if (!newWin || newWin.closed || typeof newWin.closed == 'undefined') {
+        var html = '';
+        html += '<p>Please click following link:</p>';
+        html += '<p><a href="' + href + '" target="_blank">';
+        if(connection.isInitiator) {
+          html += 'Click To Open The Room';
+        }
+        else {
+          html += 'Click To Join The Room';
+        }
+        html += '</a></p>';
+        alertBox(html, 'Popups Are Blocked');
+    }
+}
+
+function alertBox(message, title, specialMessage, callback) {
+    callback = callback || function() {};
+
+    $('.btn-alert-close').unbind('click').bind('click', function(e) {
+        e.preventDefault();
+        $('#alert-box').modal('hide');
+        $('#confirm-box-topper').hide();
+
+        callback();
+    });
+
+    $('#alert-title').html(title || 'Alert');
+    $('#alert-special').html(specialMessage || '');
+    $('#alert-message').html(message);
+    $('#confirm-box-topper').show();
+
+    $('#alert-box').modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+}
+
+function confirmBox(message, callback) {
+    $('#btn-confirm-action').html('Confirm').unbind('click').bind('click', function(e) {
+        e.preventDefault();
+        $('#confirm-box').modal('hide');
+        $('#confirm-box-topper').hide();
+        callback(true);
+    });
+
+    $('#btn-confirm-close').html('Cancel');
+
+    $('.btn-confirm-close').unbind('click').bind('click', function(e) {
+        e.preventDefault();
+        $('#confirm-box').modal('hide');
+        $('#confirm-box-topper').hide();
+        callback(false);
+    });
+
+    $('#confirm-message').html(message);
+    $('#confirm-title').html('Please Confirm');
+    $('#confirm-box-topper').show();
+
+    $('#confirm-box').modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+}
+
+$('#btn-create-room').click(function() {
+    var roomid = $('#txt-roomid').val().toString();
+    if (!roomid || !roomid.replace(/ /g, '').length) {
+        alertBox('Please enter room-id.', 'Room ID Is Required');
+        return;
+    }
+
+    var fullName = $('#txt-user-name').val().toString();
+    if (!fullName || !fullName.replace(/ /g, '').length) {
+        alertBox('Please enter your name.', 'Your Name Is Required');
+        return;
+    }
+
+    connection.extra.userFullName = fullName;
+
+    if($('#chk-room-password').prop('checked') === true){
+      var roomPassword = $('#txt-room-password').val().toString();
+      if (!roomPassword || !roomPassword.replace(/ /g, '').length) {
+          alertBox('Please enter room password.', 'Password Box Is Empty');
+          return;
+      }
+
+      connection.password = roomPassword;
+    }    
+
+    var initialHTML = $('#btn-create-room').html();
+
+    //$('#btn-create-room').html('Please wait...').prop('disabled', true);
+
+    connection.checkPresence(roomid, function(isRoomExist) {
+        if (isRoomExist === true) {
+            alertBox('다른 방 이름을 사용해 주시기 바랍니다.', '이미 사용되고 있는 방제입니다.');
+            return;
+        }
+
+        if ($('#chk-hidden-room').prop('checked') === true) {
+            // either make it unique!
+            // connection.publicRoomIdentifier = connection.token() + connection.token();
+
+            // or set an empty value (recommended)
+            connection.publicRoomIdentifier = '';
+        }
+
+        connection.sessionid = roomid;
+        connection.isInitiator = true;
+        openCanvasDesigner();
+        $('#btn-create-room').html(initialHTML).prop('disabled', false);
+    });
+});
+
+$('#chk-room-password').change(function() {
+  $('#txt-room-password').parent().css('display', this.checked === true ? 'block' : 'none');
+  $('#txt-room-password').focus();
+});
+
+var txtRoomId = document.getElementById('txt-roomid');
+
+txtRoomId.onkeyup = txtRoomId.onblur = txtRoomId.oninput = txtRoomId.onpaste = function() {
+    localStorage.setItem('canvas-designer-roomid', txtRoomId.value);
+};
+
+if (localStorage.getItem('canvas-designer-roomid')) {
+    txtRoomId.value = localStorage.getItem('canvas-designer-roomid');
+    $('#txt-roomid-hidden').val(txtRoomId.value);
+}
+
+var userFullName = document.getElementById('txt-user-name');
+
+userFullName.onkeyup = userFullName.onblur = userFullName.oninput = userFullName.onpaste = function() {
+    localStorage.setItem('canvas-designer-user-full-name', userFullName.value);
+};
+
+if (localStorage.getItem('canvas-designer-user-full-name')) {
+    userFullName.value = localStorage.getItem('canvas-designer-user-full-name');
+    $('#txt-user-name-hidden').val(userFullName.value);
+}
+</script>
+
+</body>
+<!-- ssjbody-->
+
+</html>
+
+
+
+
