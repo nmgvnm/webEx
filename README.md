@@ -1,3 +1,4 @@
-# talk
-[ 230525 목요일 ]
-컴포넌트 구조 파악
+# webEx
+
+#### sunnyside web add ####
+#### https://nmgvnm.github.io/webEx/sunnyside/web_sunnyside.html ####
